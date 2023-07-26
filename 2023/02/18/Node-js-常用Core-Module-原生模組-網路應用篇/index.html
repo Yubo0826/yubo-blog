@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
+    
+    <meta name="description" content="">
+    <meta name="description" content="netTCP 是 HTTP 通訊的基礎協定，作為 Server 與 Client 的封包傳送，用於一些底層上的資料確認通信使用。這不是網頁媒體使用，而只是一種資訊封包傳送技術。使用方式為透過 net 模組來進行架設 TCP 伺服器。我們需要設計兩個應用程式分別為 server.js 與 client.js，TCP 伺服器保持監聽模式等待 Client 進行連線進一步取得 Client 資料，並回應">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js | 常用Core Module(原生模組) - 網路應用篇">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2023/02/18/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-%E7%B6%B2%E8%B7%AF%E6%87%89%E7%94%A8%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="netTCP 是 HTTP 通訊的基礎協定，作為 Server 與 Client 的封包傳送，用於一些底層上的資料確認通信使用。這不是網頁媒體使用，而只是一種資訊封包傳送技術。使用方式為透過 net 模組來進行架設 TCP 伺服器。我們需要設計兩個應用程式分別為 server.js 與 client.js，TCP 伺服器保持監聽模式等待 Client 進行連線進一步取得 Client 資料，並回應">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-18T07:24:23.000Z">
+<meta property="article:modified_time" content="2023-07-25T07:24:58.242Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/yubo-blog/assets/favicon.ico">
+    
+    <title>Node.js | 常用Core Module(原生模組) - 網路應用篇 · David Bro&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/yubo-blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/yubo-blog/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/yubo-blog/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/yubo-blog/css/dark.css">
+    <link rel="stylesheet" href="/yubo-blog/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/yubo-blog/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/yubo-blog/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/yubo-blog/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/yubo-blog/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/yubo-blog/>David Bro's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/yubo-blog/">David Bro&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Node.js | 常用Core Module(原生模組) - 網路應用篇</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/yubo-blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Node.js | 常用Core Module(原生模組) - 網路應用篇
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Node.js">Node.js</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.5k</span>Reading time: <span class="post-count reading-time">12 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2023/02/18</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/yubo-blog/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/yubo-blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><p>TCP 是 HTTP 通訊的基礎協定，作為 Server 與 Client 的封包傳送，用於一些底層上的資料確認通信使用。這不是網頁媒體使用，而只是一種資訊封包傳送技術。使用方式為透過 <em><a target="_blank" rel="noopener" href="http://nodejs.cn/api/net.html#net_net">net</a></em> 模組來進行架設 TCP 伺服器。我們需要設計兩個應用程式分別為 server.js 與 client.js，TCP 伺服器保持監聽模式等待 Client 進行連線進一步取得 Client 資料，並回應資料還給 Client。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> net = <span class="built_in">require</span>(<span class="string">&#x27;net&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> server = net.<span class="title function_">createServer</span>(<span class="keyword">function</span> (<span class="params">myConnect</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//顯示連線資訊</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`正在與 <span class="subst">$&#123;myConnect.remoteAddress&#125;</span>:<span class="subst">$&#123;myConnect.remotePort&#125;</span> 建立連線`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//接收 Client Data 事件之處理</span></span><br><span class="line">  myConnect.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`來自 <span class="subst">$&#123;myConnect.remoteAddress&#125;</span> 的 client 資料為 &#x27;<span class="subst">$&#123;data&#125;</span>&#x27;`</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//寫入資料至 Client 端</span></span><br><span class="line">    <span class="keyword">const</span> serverData=<span class="string">`hi! Client`</span>;</span><br><span class="line">    myConnect.<span class="title function_">write</span>(serverData);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`發送給 Client:<span class="subst">$&#123;serverData&#125;</span>`</span>)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//監聽 Client Close 事件之處理</span></span><br><span class="line">  myConnect.<span class="title function_">on</span>(<span class="string">&#x27;close&#x27;</span>, <span class="keyword">function</span> (<span class="params">had_error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (had_error) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;連線錯誤&#x27;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Client 連線已關閉，伺服器持續運作中。..&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//啟用 Server 服務</span></span><br><span class="line"><span class="keyword">const</span> host = <span class="string">&#x27;192.168.1.105&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3999</span>;</span><br><span class="line">server.<span class="title function_">listen</span>(port, host, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`伺服器服務中。...<span class="subst">$&#123;host&#125;</span>:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> net = <span class="built_in">require</span>(<span class="string">&#x27;net&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> net.<span class="title class_">Socket</span>(); <span class="comment">//建立 Socket</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//連線至 Server</span></span><br><span class="line"><span class="keyword">const</span> host = <span class="string">&#x27;192.168.1.105&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3999</span>;</span><br><span class="line">client.<span class="title function_">connect</span>(port, host, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`連線至 Server <span class="subst">$&#123;host&#125;</span>:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//提供 client 資料傳送</span></span><br><span class="line">  <span class="keyword">const</span> clientData=<span class="string">&#x27;hi! Server&#x27;</span>;</span><br><span class="line">  client.<span class="title function_">write</span>(clientData);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`發送給 Server：<span class="subst">$&#123;clientData&#125;</span>`</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//監聽 Server Data 事件之處理</span></span><br><span class="line">client.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server 回應：<span class="subst">$&#123;data&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//請求關閉 Server 之連線</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`即將關閉伺服器連線。..`</span>);</span><br><span class="line">  client.<span class="title function_">destroy</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//接收 Server Close 事件之處理</span></span><br><span class="line">client.<span class="title function_">on</span>(<span class="string">&#x27;close&#x27;</span>, <span class="keyword">function</span> (<span class="params">had_error</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (had_error) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;連線錯誤&#x27;</span>);</span><br><span class="line">  <span class="keyword">else</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Server 連線已關閉&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>補:</strong></p>
+<p>Socket <a target="_blank" rel="noopener" href="https://stevenke.gitbooks.io/internetnote/content/chapter1.html">https://stevenke.gitbooks.io/internetnote/content/chapter1.html</a></p>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>HTTP 架構於前者 TCP 之上層協定，能作為 Web Server 與瀏覽器之間的資料傳送。我們能使用 <em><a target="_blank" rel="noopener" href="http://nodejs.cn/api/http.html">http</a></em> 模組來建立 Web Server 的相關類別、方法、事件，用於處理瀏覽器所發出的 HTTP 請求。</p>
+<p>每當有 HTTP 請求到達服務器時，createServer 中傳入的函數就被自動執行。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// magic happens here!</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>實際上，由 createServer 構造函數返回的 Server 對象是一個 EventEmitter，我們在這里僅是對創建 server 和對它添加監聽事件進行了簡化處理。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> server = http.<span class="title function_">createServer</span>();</span><br><span class="line">server.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>, <span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// the same kind of magic happens here!</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="處理request"><a href="#處理request" class="headerlink" title="處理request"></a>處理request</h3><p>當處理一個請求時，第一件事你需要做的是看一下這個method和其訪問地址</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; method, url &#125; = request;</span><br></pre></td></tr></table></figure>
+
+<p>查看header ，所有的header都是小寫</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; headers &#125; = request;</span><br><span class="line"><span class="keyword">const</span> userAgent = headers[<span class="string">&#x27;user-agent&#x27;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>傳入請求對象的 request 其實是 <code>ReadableStream</code> 對象， 這個Stream可以被監聽。我們可以通過監聽 ‘data’ 和 ‘end’ 事件從而把數據給取出來。</p>
+<p>每次接收資料會觸發data事件，會得到一個Buffer，理想的做法是把Buffer加入一個Array中，等到傳輸結束後觸發end事件，再把Array拼接並轉成string。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> body = [];</span><br><span class="line">request.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">  body.<span class="title function_">push</span>(chunk);</span><br><span class="line">&#125;).<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  body = <span class="title class_">Buffer</span>.<span class="title function_">concat</span>(body).<span class="title function_">toString</span>();</span><br><span class="line">  <span class="comment">// at this point, `body` has the entire request body stored in it as a string</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="傳輸過程有錯誤發生的話"><a href="#傳輸過程有錯誤發生的話" class="headerlink" title="傳輸過程有錯誤發生的話"></a>傳輸過程有錯誤發生的話</h3><p>因為 request 是一個 <code>ReadableStream</code> 對象，它同樣也是 <code>EventEmitter</code> 對象。所以當有錯誤發生時，表現的行為是很相像的。當有錯誤在 request 流上發生時，它會自動激發自身的 ‘error’ 事件。如果你不去處理監聽這個事件，此錯誤將被拋出，這導致你的程序崩潰。 你應該無論如何都要添加 ‘error’ 事件去監聽你的請求對象，哪怕你只是做一個日志或者用你自己的獨有方式去處理（當然，最佳的處理方式是返回一些出錯的信息，這已是後話了）。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">request.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// This prints the error message and stack trace to `stderr`.</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(err.<span class="property">stack</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>直到現在，已經談到了如何創建一個對象，如果從請求中獲取方法，request地址，request header和request body。當把它們組合到一起，它就看上去是這個樣子：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; headers, method, url &#125; = request;</span><br><span class="line">  <span class="keyword">let</span> body = [];</span><br><span class="line">  request.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">  &#125;).<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">    body.<span class="title function_">push</span>(chunk);</span><br><span class="line">  &#125;).<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    body = <span class="title class_">Buffer</span>.<span class="title function_">concat</span>(body).<span class="title function_">toString</span>();</span><br><span class="line">    <span class="comment">// At this point, we have the headers, method, url and body, and can now</span></span><br><span class="line">    <span class="comment">// do whatever we need to in order to respond to this request.</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;).<span class="title function_">listen</span>(<span class="number">8080</span>); <span class="comment">// Activates this server, listening on port 8080.</span></span><br></pre></td></tr></table></figure>
+
+<p>再來會說到<code>response</code> 對象。它是一個 <code>ServerResponse</code>實例，而 ServerRespose 又是 <code>WritableStream</code>。它包含了很多方法可以用以把數據返回給客戶端。</p>
+<h3 id="response"><a href="#response" class="headerlink" title="response"></a>response</h3><p>常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Write</td>
+<td>輸出String到客戶端</td>
+</tr>
+<tr>
+<td>WriteFile</td>
+<td>讀入資料檔</td>
+</tr>
+<tr>
+<td>Redirect</td>
+<td>轉換網頁</td>
+</tr>
+<tr>
+<td>Flush</td>
+<td>當BufferOutput 為True，輸出緩衝區所有內容，若沒設定，則是等所有任務都執行完之後才將所有Response.Write一起輸出</td>
+</tr>
+<tr>
+<td>End</td>
+<td>將目前暫存區內容輸出至瀏覽器後，停止將buffer中的資料傳給瀏覽器</td>
+</tr>
+<tr>
+<td>ClearContent</td>
+<td>清除Buffer中的內容</td>
+</tr>
+</tbody></table>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">writeHead</span>(<span class="number">200</span>, &#123;</span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;X-Powered-By&#x27;</span>: <span class="string">&#x27;bacon&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">write</span>(<span class="string">&#x27;&lt;html&gt;&#x27;</span>);</span><br><span class="line">response.<span class="title function_">write</span>(<span class="string">&#x27;&lt;body&gt;&#x27;</span>);</span><br><span class="line">response.<span class="title function_">write</span>(<span class="string">&#x27;&lt;h1&gt;Hello, World!&lt;/h1&gt;&#x27;</span>);</span><br><span class="line">response.<span class="title function_">write</span>(<span class="string">&#x27;&lt;/body&gt;&#x27;</span>);</span><br><span class="line">response.<span class="title function_">write</span>(<span class="string">&#x27;&lt;/html&gt;&#x27;</span>);</span><br><span class="line">response.<span class="title function_">end</span>();</span><br></pre></td></tr></table></figure>
+
+<p>可以寫成</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">end</span>(<span class="string">&#x27;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello, World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>全部整合到一起</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; headers, method, url &#125; = request;</span><br><span class="line">  <span class="keyword">let</span> body = [];</span><br><span class="line">  request.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">  &#125;).<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">    body.<span class="title function_">push</span>(chunk);</span><br><span class="line">  &#125;).<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    body = <span class="title class_">Buffer</span>.<span class="title function_">concat</span>(body).<span class="title function_">toString</span>();</span><br><span class="line">    <span class="comment">// BEGINNING OF NEW STUFF</span></span><br><span class="line"></span><br><span class="line">    response.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    response.<span class="property">statusCode</span> = <span class="number">200</span>;</span><br><span class="line">    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;application/json&#x27;</span>);</span><br><span class="line">    <span class="comment">// Note: the 2 lines above could be replaced with this next one:</span></span><br><span class="line">    <span class="comment">// response.writeHead(200, &#123;&#x27;Content-Type&#x27;: &#x27;application/json&#x27;&#125;)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> responseBody = &#123; headers, method, url, body &#125;;</span><br><span class="line"></span><br><span class="line">    response.<span class="title function_">write</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(responseBody));</span><br><span class="line">    response.<span class="title function_">end</span>();</span><br><span class="line">    <span class="comment">// Note: the 2 lines above could be replaced with this next one:</span></span><br><span class="line">    <span class="comment">// response.end(JSON.stringify(responseBody))</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// END OF NEW STUFF</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;).<span class="title function_">listen</span>(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="傳輸過程有錯誤發生的話-1"><a href="#傳輸過程有錯誤發生的話-1" class="headerlink" title="傳輸過程有錯誤發生的話"></a>傳輸過程有錯誤發生的話</h3><p>response 返回流同樣也會觸發 ‘error’ 事件，某種程度上說你不得不自己去處理它。之前全部關於 request 消息流出錯的處理方法在這里也同樣適用。</p>
+<h3 id="服務器響應的示例代碼"><a href="#服務器響應的示例代碼" class="headerlink" title="服務器響應的示例代碼"></a>服務器響應的示例代碼</h3><p>針對以下條件回應:</p>
+<ol>
+<li>請求方法是POST方式</li>
+<li>訪問路徑是<code>/echo</code></li>
+</ol>
+<p>其他情況均回傳404</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (request.<span class="property">method</span> === <span class="string">&#x27;POST&#x27;</span> &amp;&amp; request.<span class="property">url</span> === <span class="string">&#x27;/echo&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> body = [];</span><br><span class="line">    request.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">      body.<span class="title function_">push</span>(chunk);</span><br><span class="line">    &#125;).<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      body = <span class="title class_">Buffer</span>.<span class="title function_">concat</span>(body).<span class="title function_">toString</span>();</span><br><span class="line">      response.<span class="title function_">end</span>(body);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    response.<span class="property">statusCode</span> = <span class="number">404</span>;</span><br><span class="line">    response.<span class="title function_">end</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).<span class="title function_">listen</span>(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+<p>完整一點的話，加入stream的錯誤處理</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  request.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">    response.<span class="property">statusCode</span> = <span class="number">400</span>;</span><br><span class="line">    response.<span class="title function_">end</span>();</span><br><span class="line">  &#125;);</span><br><span class="line">  response.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (request.<span class="property">method</span> === <span class="string">&#x27;POST&#x27;</span> &amp;&amp; request.<span class="property">url</span> === <span class="string">&#x27;/echo&#x27;</span>) &#123;</span><br><span class="line">    request.<span class="title function_">pipe</span>(response);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    response.<span class="property">statusCode</span> = <span class="number">404</span>;</span><br><span class="line">    response.<span class="title function_">end</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).<span class="title function_">listen</span>(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+<p>以上來源:</p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/docs/guides/anatomy-of-an-http-transaction/">https://nodejs.org/zh-cn/docs/guides/anatomy-of-an-http-transaction/</a></p>
+<h3 id="其他範例"><a href="#其他範例" class="headerlink" title="其他範例"></a>其他範例</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);  <span class="comment">//宣告原生模組 http</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//建立伺服器且提供網頁狀態、HEAD 資訊、網頁內容</span></span><br><span class="line"><span class="keyword">const</span> server = http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// response.statusCode = 200;</span></span><br><span class="line">  <span class="comment">// response.setHeader(&#x27;Content-Type&#x27;, &#x27;text/plain&#x27;);  //設定 response HEAD</span></span><br><span class="line">  <span class="comment">// response.write(&#x27;Hello World&#x27;)  //設定網頁內容</span></span><br><span class="line">  <span class="comment">// response.end(); // response 送出</span></span><br><span class="line">  <span class="comment">// same as ↓</span></span><br><span class="line"></span><br><span class="line">  response.<span class="title function_">writeHead</span>(<span class="number">200</span>,&#123;<span class="string">&#x27;Content-Type&#x27;</span>:<span class="string">&#x27;text/plain&#x27;</span>&#125;);　<span class="comment">//response.setHeader() 適合循序參數調整且最後將由 writeHead() 進行嘗試合併，writeHeader() 內容優先為主</span></span><br><span class="line">  response.<span class="title function_">end</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//對伺服器進行開機並於完成作業後顯示文字至終端機</span></span><br><span class="line"><span class="keyword">const</span> hostname = <span class="string">&#x27;127.0.0.1&#x27;</span>, port = <span class="number">3000</span>; <span class="comment">//設定 Web 主機與通訊埠</span></span><br><span class="line">server.<span class="title function_">listen</span>(port, hostname, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`</span></span><br><span class="line"><span class="string">  Server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/</span></span><br><span class="line"><span class="string">  Close Server press &#x27;Ctrl+C&#x27; to exit</span></span><br><span class="line"><span class="string">  `</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>接著終端機輸入指令。透過提示的指令開啟瀏覽器至指定 URL 網頁得到提示與伺服器運作之真實網頁。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">L:\nodeTest&gt;node webServerTXT.js</span><br><span class="line"></span><br><span class="line">  Server running at http://127.0.0.1:3000/</span><br><span class="line">  Close Server Use Key <span class="string">&#x27;Ctrl+C&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="回應一個網頁格式的內容"><a href="#回應一個網頁格式的內容" class="headerlink" title="回應一個網頁格式的內容"></a>回應一個網頁格式的內容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">require(<span class="string">&#x27;http&#x27;</span>).createServer((req, res) =&gt; &#123;</span><br><span class="line">  res.writeHead(<span class="number">200</span>, &#123; &#x27;Content-Type&#x27;: &#x27;text/html&#x27; &#125;);</span><br><span class="line">  res.write(`</span><br><span class="line">    &lt;!DOCTYPE html&gt;</span><br><span class="line">    &lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;head&gt;</span><br><span class="line">      &lt;meta charset=&quot;UTF-<span class="number">8</span>&quot;&gt;</span><br><span class="line">      &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=<span class="number">1.0</span>&quot;&gt;</span><br><span class="line">      &lt;title&gt;Test HTML&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;body&gt;</span><br><span class="line">      &lt;h1&gt;Hellor World&lt;/h1&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;/html&gt;</span><br><span class="line">  `);</span><br><span class="line">  res.end();</span><br><span class="line">&#125;).listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27; Server running at http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">3000</span>/&#x27;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原生 HTTP 模組並不是很彈性，大部分的人都會推薦使用 npm 元件 express 作為網頁伺服器服務首選。</p>
+</blockquote>
+<h3 id="配合路由"><a href="#配合路由" class="headerlink" title="配合路由"></a>配合路由</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">createServer</span>(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> pageDir = __dirname + <span class="string">&#x27;/public/&#x27;</span>;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="comment">//進行路由轉換：將動態 URL 算出靜態檔案位置</span></span><br><span class="line">    <span class="keyword">switch</span> (request.<span class="property">url</span>) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;/apple&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">code</span>: <span class="number">200</span>,</span><br><span class="line">          <span class="attr">filePath</span>: pageDir + <span class="string">&#x27;a.html&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;/banana&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">code</span>: <span class="number">200</span>,</span><br><span class="line">          <span class="attr">filePath</span>: pageDir + <span class="string">&#x27;b.html&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">      <span class="attr">default</span>:</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">code</span>: <span class="number">404</span>,</span><br><span class="line">          <span class="attr">filePath</span>: pageDir + <span class="string">&#x27;page404.html&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;();　<span class="comment">//直接執行獲得物件資料</span></span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">readFile</span>(result.<span class="property">filePath</span>, <span class="keyword">function</span> (<span class="params">err, content</span>) &#123;</span><br><span class="line">    response.<span class="title function_">writeHead</span>(result.<span class="property">code</span>, &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/html&#x27;</span> &#125;); <span class="comment">//設定 response HEAD</span></span><br><span class="line">    <span class="keyword">if</span> (!err) response.<span class="title function_">end</span>(content);</span><br><span class="line">    <span class="keyword">else</span> response.<span class="title function_">end</span>(pageDir + <span class="string">&#x27;page404.html&#x27;</span>); <span class="comment">//如果檔案讀取失敗直接顯示 404 檔案</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;).<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="string">&quot;127.0.0.1&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server running!!</span></span><br><span class="line"><span class="string">    try http://127.0.0.1:3333/apple show &#x27;word A&#x27;</span></span><br><span class="line"><span class="string">    try http://127.0.0.1:3333/banana show &#x27;word B&#x27;</span></span><br><span class="line"><span class="string">    try http://127.0.0.1:3333/cat show &#x27;404 ERROR&#x27;</span></span><br><span class="line"><span class="string">    `</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license -->
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/yubo-blog/2023/02/23/Strapi-deploy-to-google-app-engine-guild/" title="Strapi deploy to google app engine guild">
+                    <div class="nextTitle">Strapi deploy to google app engine guild</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/yubo-blog/2023/02/17/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-Path/" title="Node.js | 常用Core Module(原生模組) - Path">
+                    <div class="prevTitle">Node.js | 常用Core Module(原生模組) - Path</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:yubo0826@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Yubo0826" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.linkedin.com/in/boyuchou/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#net"><span class="toc-number">1.</span> <span class="toc-text">net</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http"><span class="toc-number">2.</span> <span class="toc-text">http</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%95%E7%90%86request"><span class="toc-number">2.1.</span> <span class="toc-text">處理request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%B3%E8%BC%B8%E9%81%8E%E7%A8%8B%E6%9C%89%E9%8C%AF%E8%AA%A4%E7%99%BC%E7%94%9F%E7%9A%84%E8%A9%B1"><span class="toc-number">2.2.</span> <span class="toc-text">傳輸過程有錯誤發生的話</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#response"><span class="toc-number">2.3.</span> <span class="toc-text">response</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%82%B3%E8%BC%B8%E9%81%8E%E7%A8%8B%E6%9C%89%E9%8C%AF%E8%AA%A4%E7%99%BC%E7%94%9F%E7%9A%84%E8%A9%B1-1"><span class="toc-number">2.4.</span> <span class="toc-text">傳輸過程有錯誤發生的話</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8B%99%E5%99%A8%E9%9F%BF%E6%87%89%E7%9A%84%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A2%BC"><span class="toc-number">2.5.</span> <span class="toc-text">服務器響應的示例代碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%AF%84%E4%BE%8B"><span class="toc-number">2.6.</span> <span class="toc-text">其他範例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%87%89%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%85%A7%E5%AE%B9"><span class="toc-number">2.7.</span> <span class="toc-text">回應一個網頁格式的內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E5%90%88%E8%B7%AF%E7%94%B1"><span class="toc-number">2.8.</span> <span class="toc-text">配合路由</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/07/11/Vue-console-log-%E7%94%B1flag%E5%88%A4%E6%96%B7%E8%A6%81%E4%B8%8D%E8%A6%81%E9%A1%AF%E7%A4%BA/">Vue console.log 由flag判斷要不要顯示</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/06/19/%E4%BA%86%E8%A7%A3DOM%E5%85%83%E7%B4%A0%E5%B0%BA%E5%AF%B8%E5%8F%8A%E4%BD%8D%E7%BD%AE/">了解DOM元素尺寸及位置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/06/07/Typescript-%E4%BB%BB%E6%84%8F%E5%B1%AC%E6%80%A7/">Typescript 任意屬性</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/05/29/JS-DOM-%E6%87%89%E7%94%A8-%E7%84%A1%E9%99%90%E6%BB%BE%E5%8B%95/">JS DOM 應用- 無限滾動</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/27/%E5%BB%BA%E6%A7%8B%E5%AD%90%E5%87%BD%E6%95%B8-%E7%95%B6%E5%87%BD%E6%95%B8%E6%98%AF%E5%8F%83%E6%95%B8/">建構子函數 當函數是參數</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/25/Promise-%E6%BA%90%E7%A2%BC%E5%88%86%E6%9E%90/">Promise 源碼分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/21/Promise-chain-%E9%8F%88-%E7%82%BA%E4%BB%80%E9%BA%BC%E6%9C%83%E6%9C%89%E5%85%A9%E6%AC%A1then/">Promise chain 鏈| 為什麼會有兩次then?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/16/%E8%AA%8D%E8%AD%98Promise/">認識 JS Promise</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/15/XML-%E6%98%AF%E4%BB%80%E9%BA%BC/">XML 是什麼?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/03/27/JS-%E7%9F%AD%E8%B7%AF%E6%B1%82%E5%80%BC-Short-circuit-evaluation/">JS | 短路求值(Short-circuit evaluation)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/03/07/Node-js-Buffer%E8%88%87Stream/">Node.js | Buffer與Stream</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/23/Strapi-deploy-to-google-app-engine-guild/">Strapi deploy to google app engine guild</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/18/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-%E7%B6%B2%E8%B7%AF%E6%87%89%E7%94%A8%E7%AF%87/">Node.js | 常用Core Module(原生模組) - 網路應用篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/17/Node-js-Local-Modules%EF%BC%88%E8%87%AA%E5%BB%BA%E6%A8%A1%E7%B5%84%EF%BC%89/">Node.js | Local Modules（自建模組）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/17/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-Path/">Node.js | 常用Core Module(原生模組) - Path</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/01/10/Module-build-failed-Error-ENOENT-no-such-file-or-directory-scandir%E2%80%A6-Linux%E7%92%B0%E5%A2%83%E6%89%93%E5%8C%85Vue-Bug%E8%A7%A3%E6%B1%BA/">Module build failed: Error: ENOENT: no such file or directory, scandir… | Linux環境打包Vue Bug解決</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/12/30/Vue3-Composition-API-%E5%AF%AB%E6%B3%95%E4%BB%8B%E7%B4%B9/">Vue3 Composition API 寫法介紹</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/11/30/Javascript-%E7%89%A9%E4%BB%B6%E5%82%B3%E5%9D%80/">Javascript 物件傳址</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/10/13/Vue-checkbox-%E8%A9%B2%E7%94%A8-click%E9%82%84%E6%98%AF-change/">Vue checkbox 該用@click還是@change?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/09/08/vue%E4%B8%AD-ob-Observer%E5%8F%96%E4%B8%8D%E5%88%B0%E5%80%BC/">Vue中__ob__: Observer取不到值?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/08/18/Vue-%E9%83%A8%E5%B1%AC%E5%88%B0Github-Pages%E7%B0%A1%E6%98%93%E6%95%99%E5%AD%B8/">Vue | 部屬到Github Pages簡易教學</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/08/17/Vue-Markdown%E8%BD%89HTML%E5%A5%97%E4%BB%B6-v-md-editor/">Vue | Markdown轉HTML套件: v-md-editor</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/07/02/%E8%BC%95%E9%87%8F%E5%8C%96github-issue%E7%95%99%E8%A8%80%E6%8F%92%E4%BB%B6-utterances/">輕量化github issue留言插件 utterances</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/">Strapi upload image to Cloudinary</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/05/06/%E4%BD%BF%E7%94%A8v-on-keypress%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C/">使用v-on keypress遇到的問題</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/04/18/Vue-Array%E8%B3%87%E6%96%99%E8%AE%8A%E5%8B%95%E5%BE%8C%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E5%8D%B3%E6%99%82%E6%B8%B2%E6%9F%93/">Vue Array資料變動後如何做到即時渲染 ?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/04/03/JS-this-%E5%AD%98%E5%9C%A8%E7%9A%84-Bug-%E4%BB%A5%E5%8F%8A-ES6%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%8E%BB%E4%BF%AE%E6%AD%A3%E9%80%99%E5%80%8B-Bug/">JS | this 存在的 Bug 以及 ES6箭頭函式去修正這個 Bug</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/03/30/%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E8%B3%A6%E5%80%BC-%E6%95%B4%E7%90%86%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E3%80%81let%E3%80%81var%E7%9A%84%E4%B8%8D%E5%90%8C/">無關鍵字賦值? | 整理無關鍵字、let、var的不同</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/02/16/leetcode-136-Single-Number-XOR%E7%9A%84%E7%89%B9%E6%80%A7/">leetcode 136. Single Number | XOR的特性</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/01/17/JSON-Server-%E6%A8%A1%E6%93%AC-RESTful-API%E5%8F%96%E5%BE%97%E5%81%87%E8%B3%87%E6%96%99/">JSON Server | 模擬 RESTful API取得假資料</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JavaScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                JavaScript
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="DOM">
+                <span class="iconfont-archer">&#xe606;</span>
+                DOM
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Node.js">
+                <span class="iconfont-archer">&#xe606;</span>
+                Node.js
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="套件">
+                <span class="iconfont-archer">&#xe606;</span>
+                套件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Vue">
+                <span class="iconfont-archer">&#xe606;</span>
+                Vue
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="BugFix">
+                <span class="iconfont-archer">&#xe606;</span>
+                BugFix
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Build">
+                <span class="iconfont-archer">&#xe606;</span>
+                Build
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Promise">
+                <span class="iconfont-archer">&#xe606;</span>
+                Promise
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Strapi">
+                <span class="iconfont-archer">&#xe606;</span>
+                Strapi
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Google App Engine">
+                <span class="iconfont-archer">&#xe606;</span>
+                Google App Engine
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="GCP">
+                <span class="iconfont-archer">&#xe606;</span>
+                GCP
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Deploy to Cloud">
+                <span class="iconfont-archer">&#xe606;</span>
+                Deploy to Cloud
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="TypeScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                TypeScript
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Cloudinary">
+                <span class="iconfont-archer">&#xe606;</span>
+                Cloudinary
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Markdown">
+                <span class="iconfont-archer">&#xe606;</span>
+                Markdown
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="XML">
+                <span class="iconfont-archer">&#xe606;</span>
+                XML
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Github Pages">
+                <span class="iconfont-archer">&#xe606;</span>
+                Github Pages
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="LeetCode">
+                <span class="iconfont-archer">&#xe606;</span>
+                LeetCode
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="XOR">
+                <span class="iconfont-archer">&#xe606;</span>
+                XOR
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="utterances">
+                <span class="iconfont-archer">&#xe606;</span>
+                utterances
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="JavaScript">
+            <span class="iconfont-archer">&#xe60a;</span>
+            JavaScript
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Node.js">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Node.js
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Linux">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Linux
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Strapi">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Strapi
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="TypeScript">
+            <span class="iconfont-archer">&#xe60a;</span>
+            TypeScript
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vue">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vue
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/yubo-blog/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://Yubo0826.github.io/yubo-blog",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/yubo-blog/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/yubo-blog/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/yubo-blog/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

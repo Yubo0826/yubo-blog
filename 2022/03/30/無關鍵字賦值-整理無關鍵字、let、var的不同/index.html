@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
+    
+    <meta name="description" content="">
+    <meta name="description" content="var是全域變數宣告? 這句可能你覺得很對的一句話，實際上是個的錯誤… 無關鍵字賦值、var 宣告、let 宣告最大的差別在於生存區域的不同。無關鍵字賦值意味著全域變數的宣告，當然你在全域範圍使用 var&#x2F;let 宣告也是全域的。 原文網址: https:&#x2F;&#x2F;tw.alphacamp.co&#x2F;blog&#x2F;javascript-var-let-const 裏頭有相當多詳細觀念 整理:  無關鍵">
+<meta property="og:type" content="article">
+<meta property="og:title" content="無關鍵字賦值? | 整理無關鍵字、let、var的不同">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2022/03/30/%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E8%B3%A6%E5%80%BC-%E6%95%B4%E7%90%86%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E3%80%81let%E3%80%81var%E7%9A%84%E4%B8%8D%E5%90%8C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="var是全域變數宣告? 這句可能你覺得很對的一句話，實際上是個的錯誤… 無關鍵字賦值、var 宣告、let 宣告最大的差別在於生存區域的不同。無關鍵字賦值意味著全域變數的宣告，當然你在全域範圍使用 var&#x2F;let 宣告也是全域的。 原文網址: https:&#x2F;&#x2F;tw.alphacamp.co&#x2F;blog&#x2F;javascript-var-let-const 裏頭有相當多詳細觀念 整理:  無關鍵">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-30T08:01:17.000Z">
+<meta property="article:modified_time" content="2023-07-25T08:02:53.694Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/yubo-blog/assets/favicon.ico">
+    
+    <title>無關鍵字賦值? | 整理無關鍵字、let、var的不同 · David Bro&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/yubo-blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/yubo-blog/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/yubo-blog/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/yubo-blog/css/dark.css">
+    <link rel="stylesheet" href="/yubo-blog/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/yubo-blog/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/yubo-blog/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/yubo-blog/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/yubo-blog/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/yubo-blog/>David Bro's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/yubo-blog/">David Bro&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">無關鍵字賦值? | 整理無關鍵字、let、var的不同</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/yubo-blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                無關鍵字賦值? | 整理無關鍵字、let、var的不同
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">328</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/03/30</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/yubo-blog/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/yubo-blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>var是全域變數宣告?</p>
+<p>這句可能你覺得很對的一句話，實際上是個的錯誤…</p>
+<p>無關鍵字賦值、var 宣告、let 宣告最大的差別在於<strong>生存區域的不同</strong>。無關鍵字賦值意味著全域變數的宣告，當然你在全域範圍使用 var&#x2F;let 宣告也是全域的。</p>
+<p>原文網址:</p>
+<p><a target="_blank" rel="noopener" href="https://tw.alphacamp.co/blog/javascript-var-let-const">https://tw.alphacamp.co/blog/javascript-var-let-const</a></p>
+<p>裏頭有相當多詳細觀念</p>
+<p>整理:</p>
+<ol>
+<li><p>無關鍵字賦值: 意味著全域變數的宣告</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">printG</span>(<span class="params"></span>)&#123;</span><br><span class="line">  g = <span class="number">1</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`printG: `</span>, g)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">printG</span>() <span class="comment">// =&gt; printG: 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Global G:`</span>, g) <span class="comment">// =&gt; Global G: 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>var宣告: 其生存範圍存在於函數內</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">printV1</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> v = <span class="number">2</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`printV1:`</span>, v)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">printV1</span>() <span class="comment">// =&gt; pritnV1: 2</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(v)<span class="comment">// error  </span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;not find v&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>let宣告: 變數是屬於區塊的(block)</p>
+</li>
+</ol>
+<h2 id="提升-Hoisting"><a href="#提升-Hoisting" class="headerlink" title="提升(Hoisting)"></a>提升(<strong>Hoisting)</strong></h2><blockquote>
+<p>JavaScript 僅提升宣告的部分，而不是初始化。如果在使用該變數後才宣告和初始化，那麼該值將是 undefined。</p>
+</blockquote>
+<p>下面code我一開始看以為是輸出</p>
+<p>9</p>
+<p>2</p>
+<p>但因為提升的關係，JS在執行printV0函式時，會優先將v1變數放入記憶體，但尚未初始化，所以第一個會log出undefined。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> v1 = <span class="number">9</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">printV0</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`printV2:`</span>, v1) <span class="comment">// undefined</span></span><br><span class="line">  <span class="keyword">var</span> v1 = <span class="number">2</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`printV2:`</span>, v1) <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">printV0</span>()</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license -->
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/yubo-blog/2022/04/03/JS-this-%E5%AD%98%E5%9C%A8%E7%9A%84-Bug-%E4%BB%A5%E5%8F%8A-ES6%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%8E%BB%E4%BF%AE%E6%AD%A3%E9%80%99%E5%80%8B-Bug/" title="JS | this 存在的 Bug 以及 ES6箭頭函式去修正這個 Bug">
+                    <div class="nextTitle">JS | this 存在的 Bug 以及 ES6箭頭函式去修正這個 Bug</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/yubo-blog/2022/02/16/leetcode-136-Single-Number-XOR%E7%9A%84%E7%89%B9%E6%80%A7/" title="leetcode 136. Single Number | XOR的特性">
+                    <div class="prevTitle">leetcode 136. Single Number | XOR的特性</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:yubo0826@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/Yubo0826" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.linkedin.com/in/boyuchou/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E5%8D%87-Hoisting"><span class="toc-number">1.</span> <span class="toc-text">提升(Hoisting)</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2023 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/11</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/07/11/Vue-console-log-%E7%94%B1flag%E5%88%A4%E6%96%B7%E8%A6%81%E4%B8%8D%E8%A6%81%E9%A1%AF%E7%A4%BA/">Vue console.log 由flag判斷要不要顯示</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/06/19/%E4%BA%86%E8%A7%A3DOM%E5%85%83%E7%B4%A0%E5%B0%BA%E5%AF%B8%E5%8F%8A%E4%BD%8D%E7%BD%AE/">了解DOM元素尺寸及位置</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/07</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/06/07/Typescript-%E4%BB%BB%E6%84%8F%E5%B1%AC%E6%80%A7/">Typescript 任意屬性</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/05/29/JS-DOM-%E6%87%89%E7%94%A8-%E7%84%A1%E9%99%90%E6%BB%BE%E5%8B%95/">JS DOM 應用- 無限滾動</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/27/%E5%BB%BA%E6%A7%8B%E5%AD%90%E5%87%BD%E6%95%B8-%E7%95%B6%E5%87%BD%E6%95%B8%E6%98%AF%E5%8F%83%E6%95%B8/">建構子函數 當函數是參數</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/25/Promise-%E6%BA%90%E7%A2%BC%E5%88%86%E6%9E%90/">Promise 源碼分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/21</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/21/Promise-chain-%E9%8F%88-%E7%82%BA%E4%BB%80%E9%BA%BC%E6%9C%83%E6%9C%89%E5%85%A9%E6%AC%A1then/">Promise chain 鏈| 為什麼會有兩次then?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/16/%E8%AA%8D%E8%AD%98Promise/">認識 JS Promise</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/04/15/XML-%E6%98%AF%E4%BB%80%E9%BA%BC/">XML 是什麼?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/27</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/03/27/JS-%E7%9F%AD%E8%B7%AF%E6%B1%82%E5%80%BC-Short-circuit-evaluation/">JS | 短路求值(Short-circuit evaluation)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/03/07/Node-js-Buffer%E8%88%87Stream/">Node.js | Buffer與Stream</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/23/Strapi-deploy-to-google-app-engine-guild/">Strapi deploy to google app engine guild</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/18/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-%E7%B6%B2%E8%B7%AF%E6%87%89%E7%94%A8%E7%AF%87/">Node.js | 常用Core Module(原生模組) - 網路應用篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/17/Node-js-Local-Modules%EF%BC%88%E8%87%AA%E5%BB%BA%E6%A8%A1%E7%B5%84%EF%BC%89/">Node.js | Local Modules（自建模組）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/02/17/Node-js-%E5%B8%B8%E7%94%A8Core-Module-%E5%8E%9F%E7%94%9F%E6%A8%A1%E7%B5%84-Path/">Node.js | 常用Core Module(原生模組) - Path</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span>
+            <a class="archive-post-title" href="/yubo-blog/2023/01/10/Module-build-failed-Error-ENOENT-no-such-file-or-directory-scandir%E2%80%A6-Linux%E7%92%B0%E5%A2%83%E6%89%93%E5%8C%85Vue-Bug%E8%A7%A3%E6%B1%BA/">Module build failed: Error: ENOENT: no such file or directory, scandir… | Linux環境打包Vue Bug解決</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/12/30/Vue3-Composition-API-%E5%AF%AB%E6%B3%95%E4%BB%8B%E7%B4%B9/">Vue3 Composition API 寫法介紹</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/11/30/Javascript-%E7%89%A9%E4%BB%B6%E5%82%B3%E5%9D%80/">Javascript 物件傳址</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/10/13/Vue-checkbox-%E8%A9%B2%E7%94%A8-click%E9%82%84%E6%98%AF-change/">Vue checkbox 該用@click還是@change?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/09/08/vue%E4%B8%AD-ob-Observer%E5%8F%96%E4%B8%8D%E5%88%B0%E5%80%BC/">Vue中__ob__: Observer取不到值?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/08/18/Vue-%E9%83%A8%E5%B1%AC%E5%88%B0Github-Pages%E7%B0%A1%E6%98%93%E6%95%99%E5%AD%B8/">Vue | 部屬到Github Pages簡易教學</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/08/17/Vue-Markdown%E8%BD%89HTML%E5%A5%97%E4%BB%B6-v-md-editor/">Vue | Markdown轉HTML套件: v-md-editor</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/07/02/%E8%BC%95%E9%87%8F%E5%8C%96github-issue%E7%95%99%E8%A8%80%E6%8F%92%E4%BB%B6-utterances/">輕量化github issue留言插件 utterances</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/">Strapi upload image to Cloudinary</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/05/06/%E4%BD%BF%E7%94%A8v-on-keypress%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C/">使用v-on keypress遇到的問題</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/04/18/Vue-Array%E8%B3%87%E6%96%99%E8%AE%8A%E5%8B%95%E5%BE%8C%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E5%8D%B3%E6%99%82%E6%B8%B2%E6%9F%93/">Vue Array資料變動後如何做到即時渲染 ?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/03</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/04/03/JS-this-%E5%AD%98%E5%9C%A8%E7%9A%84-Bug-%E4%BB%A5%E5%8F%8A-ES6%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F%E5%8E%BB%E4%BF%AE%E6%AD%A3%E9%80%99%E5%80%8B-Bug/">JS | this 存在的 Bug 以及 ES6箭頭函式去修正這個 Bug</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/03/30/%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E8%B3%A6%E5%80%BC-%E6%95%B4%E7%90%86%E7%84%A1%E9%97%9C%E9%8D%B5%E5%AD%97%E3%80%81let%E3%80%81var%E7%9A%84%E4%B8%8D%E5%90%8C/">無關鍵字賦值? | 整理無關鍵字、let、var的不同</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/02/16/leetcode-136-Single-Number-XOR%E7%9A%84%E7%89%B9%E6%80%A7/">leetcode 136. Single Number | XOR的特性</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span>
+            <a class="archive-post-title" href="/yubo-blog/2022/01/17/JSON-Server-%E6%A8%A1%E6%93%AC-RESTful-API%E5%8F%96%E5%BE%97%E5%81%87%E8%B3%87%E6%96%99/">JSON Server | 模擬 RESTful API取得假資料</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JavaScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                JavaScript
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="DOM">
+                <span class="iconfont-archer">&#xe606;</span>
+                DOM
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Node.js">
+                <span class="iconfont-archer">&#xe606;</span>
+                Node.js
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="套件">
+                <span class="iconfont-archer">&#xe606;</span>
+                套件
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Vue">
+                <span class="iconfont-archer">&#xe606;</span>
+                Vue
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="BugFix">
+                <span class="iconfont-archer">&#xe606;</span>
+                BugFix
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Build">
+                <span class="iconfont-archer">&#xe606;</span>
+                Build
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Promise">
+                <span class="iconfont-archer">&#xe606;</span>
+                Promise
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Strapi">
+                <span class="iconfont-archer">&#xe606;</span>
+                Strapi
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Google App Engine">
+                <span class="iconfont-archer">&#xe606;</span>
+                Google App Engine
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="GCP">
+                <span class="iconfont-archer">&#xe606;</span>
+                GCP
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Deploy to Cloud">
+                <span class="iconfont-archer">&#xe606;</span>
+                Deploy to Cloud
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="TypeScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                TypeScript
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Cloudinary">
+                <span class="iconfont-archer">&#xe606;</span>
+                Cloudinary
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Markdown">
+                <span class="iconfont-archer">&#xe606;</span>
+                Markdown
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="XML">
+                <span class="iconfont-archer">&#xe606;</span>
+                XML
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Github Pages">
+                <span class="iconfont-archer">&#xe606;</span>
+                Github Pages
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="LeetCode">
+                <span class="iconfont-archer">&#xe606;</span>
+                LeetCode
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="XOR">
+                <span class="iconfont-archer">&#xe606;</span>
+                XOR
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="utterances">
+                <span class="iconfont-archer">&#xe606;</span>
+                utterances
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="JavaScript">
+            <span class="iconfont-archer">&#xe60a;</span>
+            JavaScript
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Node.js">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Node.js
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Linux">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Linux
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Strapi">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Strapi
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="TypeScript">
+            <span class="iconfont-archer">&#xe60a;</span>
+            TypeScript
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vue">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vue
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/yubo-blog/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://Yubo0826.github.io/yubo-blog",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/yubo-blog/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/yubo-blog/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/yubo-blog/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
