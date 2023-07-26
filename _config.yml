@@ -105,7 +105,8 @@ theme: archer
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/Yubo0826/yubo-blog.git
 
 jsonContent:
   meta: true
