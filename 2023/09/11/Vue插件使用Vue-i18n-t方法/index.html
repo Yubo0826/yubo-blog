@@ -19,18 +19,25 @@
         <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
     
     <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/tags/Cloudinary/index.html">
+    <meta name="description" content="緣由在專案自製一個popup視窗插件，上面的文字用i18n模板，但使用上會產生錯誤， 詳看log後，發現調用i18n方法$t，會報錯，而錯誤似乎是源於i18n實例找不到 12Cannot read properties of undefined (reading &amp;#x27;_t&amp;#x27;)&quot;&#x2F;&#x2F; _t指向i18n實例  i18n實例在main.js裡面被定義 123456789101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue插件使用Vue i18n $t方法">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2023/09/11/Vue%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8Vue-i18n-t%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="緣由在專案自製一個popup視窗插件，上面的文字用i18n模板，但使用上會產生錯誤， 詳看log後，發現調用i18n方法$t，會報錯，而錯誤似乎是源於i18n實例找不到 12Cannot read properties of undefined (reading &amp;#x27;_t&amp;#x27;)&quot;&#x2F;&#x2F; _t指向i18n實例  i18n實例在main.js裡面被定義 123456789101">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-09-11T09:43:52.000Z">
+<meta property="article:modified_time" content="2023-09-11T09:45:35.103Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="BugFix">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="i18n">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/yubo-blog/assets/favicon.ico">
     
-    <title>David Bro&#39;s Blog</title>
+    <title>Vue插件使用Vue i18n $t方法 · David Bro&#39;s Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -218,6 +225,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -247,6 +256,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/yubo-blog/">David Bro&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Vue插件使用Vue i18n $t方法</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -273,24 +293,84 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/yubo-blog/)"></div>
+    <div class="site-intro-img" style="background-image: url(/yubo-blog/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                Vue插件使用Vue i18n $t方法
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="BugFix">BugFix</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Vue">Vue</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="i18n">i18n</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">398</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2023/09/11</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -420,50 +500,80 @@
 
             <img class="loading" src="/yubo-blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
-                <main class="main index-page">
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/">
-                
-                <span class="abstract-title-text">Strapi upload image to Cloudinary</span>
-            </a>
-            <div class="abstract-content">
-                關於Cloudinaryhttps://cloudinary.com/
+                <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>在專案自製一個popup視窗插件，上面的文字用i18n模板，但使用上會產生錯誤，</p>
+<p>詳看log後，發現調用i18n方法<code>$t</code>，會報錯，而錯誤似乎是源於i18n實例找不到</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Cannot</span> read properties <span class="keyword">of</span> <span class="literal">undefined</span> (reading <span class="string">&#x27;_t&#x27;</span>)<span class="string">&quot;</span></span><br><span class="line"><span class="string">// _t指向i18n實例</span></span><br></pre></td></tr></table></figure>
 
-Cloudinary...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2023/07/25">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/07/01</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Strapi">Strapi</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Cloudinary">Cloudinary</a>
-    
-</div>
+<p>i18n實例在main.js裡面被定義</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i18n配置</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueI18</span>n <span class="keyword">from</span> <span class="string">&#x27;vue-i18n&#x27;</span></span><br><span class="line"><span class="keyword">import</span> messages <span class="keyword">from</span> <span class="string">&#x27;./lang/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueI18</span>n)  <span class="comment">// 可以使用$t</span></span><br><span class="line"><span class="keyword">const</span> lang = <span class="string">&#x27;en&#x27;</span></span><br><span class="line"><span class="keyword">const</span> i18n = <span class="keyword">new</span> <span class="title class_">VueI18</span>n(&#123;</span><br><span class="line">  <span class="attr">locale</span>: lang,</span><br><span class="line">  messages</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入自己的插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MsgBox</span> <span class="keyword">from</span> <span class="string">&#x27;./components/common/MessageBox&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">MsgBox</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Vue實例產生</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#root&#x27;</span>,</span><br><span class="line">  i18n,</span><br><span class="line">  <span class="attr">router</span>: router,</span><br><span class="line">  <span class="attr">store</span>: store,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">AppView</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
+<h2 id="解決"><a href="#解決" class="headerlink" title="解決"></a>解決</h2><p>這個i18n實例包含翻譯語言包與預設語言等資訊，是$t所需的，但原來的flow，<code>Vue.use(MsgBox)</code>這時找不到i18n實例，因為等<code>new Vue()</code>才能拿到。</p>
+<p>現行的解決方法是<code>Vue.use(MsgBox)</code>在<code>new Vue()</code>在後才調用</p>
+<p>改成:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">VueInstance</span> = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#root&#x27;</span>,</span><br><span class="line">  i18n,</span><br><span class="line">  <span class="attr">router</span>: router,</span><br><span class="line">  <span class="attr">store</span>: store,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">AppView</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">MsgBox</span>, &#123; <span class="attr">i18n</span>: <span class="title class_">VueInstance</span>.<span class="property">$i18n</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>把i18n實例傳入插件裡面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// MessageBox.js</span><br><span class="line">import MessageBoxComp from &#x27;./MessageBox.vue&#x27;</span><br><span class="line"></span><br><span class="line">const msgBox = &#123;</span><br><span class="line">  install: (Vue, &#123; i18n &#125;) =&gt; &#123;</span><br><span class="line">    const MsgBoxConstructor = Vue.extend(MessageBoxComp)</span><br><span class="line">    const instance = new MsgBoxConstructor()</span><br><span class="line">    instance.$mount(document.createElement(&#x27;div&#x27;))</span><br><span class="line"></span><br><span class="line">    Vue.prototype.$msg = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    Vue.prototype.$msg.error = (msg, title) =&gt; &#123;</span><br><span class="line">      document.body.appendChild(instance.$el)</span><br><span class="line">      instance.type = &#x27;error&#x27;</span><br><span class="line">      instance.show = true</span><br><span class="line">      instance.i18n = i18n.locale</span><br><span class="line">    &#125;</span><br><span class="line">    Vue.prototype.$msg.success = (msg) =&gt; &#123;</span><br><span class="line">      document.body.appendChild(instance.$el)</span><br><span class="line">      instance.type = &#x27;success&#x27;</span><br><span class="line">      instance.show = true</span><br><span class="line">      instance.i18n = i18n.locale</span><br><span class="line">      instance.msg = msg</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default msgBox</span><br></pre></td></tr></table></figure>
+
+<h2 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h2><p>官方使用&#x2F;開發插件文件</p>
+<p><a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/guide/plugins.html">https://v2.cn.vuejs.org/v2/guide/plugins.html</a></p>
+
+    </article>
+    <!-- license -->
     
-    <!-- paginator  -->
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/yubo-blog/2023/09/04/JS-download-%E6%96%87%E6%9C%AC%E4%B8%AD-%E5%BE%8C%E9%9D%A2%E7%9A%84%E5%AD%97%E9%83%BD%E4%B8%8D%E8%A6%8B%E4%BA%86/" title="JS download 文本中#後面的字都不見了">
+                    <div class="prevTitle">JS download 文本中#後面的字都不見了</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
     
 </main>
+<style>
+    h2 {
+        margin-top: 2.5em;
+    }
+</style>
 
                 <!-- profile -->
                 
@@ -549,6 +659,23 @@ Cloudinary...
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%B1%BA"><span class="toc-number">2.</span> <span class="toc-text">解決</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%9C%E5%85%85"><span class="toc-number">3.</span> <span class="toc-text">補充</span></a></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1471,6 +1598,8 @@ Cloudinary...
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/yubo-blog/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         
