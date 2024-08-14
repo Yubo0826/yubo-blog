@@ -2,7 +2,7 @@
 # avatar
 avatar: /avatar/avatar.jpg
 # author name
-author: David Bro
+author: David
 # signature
 signature: Front-end developer
 # SNS (you can custom the order)
@@ -62,7 +62,7 @@ profile_links:
 
 # ========== Site ========== #
 # title of the site (good for SEO)
-SEO_title: David Bro's Blog
+SEO_title: David Yu Blog
 # keywords for site (good for SEO)
 SEO_keywords:
   - hexo
@@ -71,9 +71,9 @@ SEO_keywords:
   - 'David 前端'
   - 'David Vue'
 # main title shown in header image
-main_title: David Bro's Blog
+main_title: David Yu Blog
 # subtitle
-subtitle: 簡單紀錄工作、自修的學習歷程
+subtitle: 簡單紀錄自修、工作的學習歷程
 # site haeder image
 site_header_image: '/intro/index-bg.jpg'
 # post haeder image
