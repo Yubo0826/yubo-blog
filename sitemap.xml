@@ -371,13 +371,6 @@
 
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/Data-URI/</loc>
-    <lastmod>2024-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/LeetCode/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -413,7 +406,21 @@
   </url>
   
   <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/Data-URI/</loc>
+    <lastmod>2024-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/JavaScript/</loc>
+    <lastmod>2024-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -428,13 +435,6 @@
   
   <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/encoded/</loc>
-    <lastmod>2024-08-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -597,14 +597,14 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/Algorithm/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/JavaScript/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/JavaScript/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/Algorithm/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -646,14 +646,14 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/LeetCode/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/i18n/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/i18n/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/LeetCode/</loc>
     <lastmod>2024-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
