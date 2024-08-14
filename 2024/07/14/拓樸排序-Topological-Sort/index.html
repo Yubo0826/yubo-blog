@@ -20,26 +20,27 @@
         <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
     
     <meta name="description" content="">
-    <meta name="description" content="關於Cloudinaryhttps:&#x2F;&#x2F;cloudinary.com&#x2F;  Cloudinary 是一個為網頁和行動裝置開發者提供的媒體管理平台，簡單來說就是一個基於雲端圖片處理、管理、儲存、美化於一體的平台，同时也具備影像抓取功能，提供API接口。 為甚麼要上傳到Cloudinary當strapi部屬到heroku，由於heroku免費專案是如果30分鐘沒有api call，伺服器就會進入休眠，每">
+    <meta name="description" content="認識Topological Sorthttps:&#x2F;&#x2F;sites.google.com&#x2F;view&#x2F;zsgititit&#x2F;home&#x2F;jin-jiec-cheng-shi-she-ji-2&#x2F;tu-lun-topology-sort 演算法利用「拔點」的方式，推導拓樸排序  計算圖中各點 indegree(被連入邊數，又稱「入度」)，即前置工作量 將所有圖中 indegree 為 0 的點，即無前置工作者，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Strapi upload image to Cloudinary">
-<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/index.html">
+<meta property="og:title" content="拓樸排序 Topological Sort">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2024/07/14/%E6%8B%93%E6%A8%B8%E6%8E%92%E5%BA%8F-Topological-Sort/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="關於Cloudinaryhttps:&#x2F;&#x2F;cloudinary.com&#x2F;  Cloudinary 是一個為網頁和行動裝置開發者提供的媒體管理平台，簡單來說就是一個基於雲端圖片處理、管理、儲存、美化於一體的平台，同时也具備影像抓取功能，提供API接口。 為甚麼要上傳到Cloudinary當strapi部屬到heroku，由於heroku免費專案是如果30分鐘沒有api call，伺服器就會進入休眠，每">
+<meta property="og:description" content="認識Topological Sorthttps:&#x2F;&#x2F;sites.google.com&#x2F;view&#x2F;zsgititit&#x2F;home&#x2F;jin-jiec-cheng-shi-she-ji-2&#x2F;tu-lun-topology-sort 演算法利用「拔點」的方式，推導拓樸排序  計算圖中各點 indegree(被連入邊數，又稱「入度」)，即前置工作量 將所有圖中 indegree 為 0 的點，即無前置工作者，">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/cloud.png">
-<meta property="article:published_time" content="2022-07-01T06:46:51.000Z">
-<meta property="article:modified_time" content="2023-07-25T06:49:46.655Z">
+<meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/07/14/%E6%8B%93%E6%A8%B8%E6%8E%92%E5%BA%8F-Topological-Sort/1.jpg">
+<meta property="article:published_time" content="2024-07-14T03:01:16.000Z">
+<meta property="article:modified_time" content="2024-08-14T03:04:13.291Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Strapi">
-<meta property="article:tag" content="Cloudinary">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="Topological Sort">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yubo0826.github.io/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/cloud.png">
+<meta name="twitter:image" content="https://yubo0826.github.io/yubo-blog/2024/07/14/%E6%8B%93%E6%A8%B8%E6%8E%92%E5%BA%8F-Topological-Sort/1.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/yubo-blog/assets/favicon.ico">
     
-    <title>Strapi upload image to Cloudinary · David Bro&#39;s Blog</title>
+    <title>拓樸排序 Topological Sort · David Bro&#39;s Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -265,7 +266,7 @@
                 <a href="/yubo-blog/">David Bro&#39;s Blog</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">Strapi upload image to Cloudinary</a>
+                <a href="#" class="post-name">拓樸排序 Topological Sort</a>
             </div>
         </div>
     
@@ -311,7 +312,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                Strapi upload image to Cloudinary
+                拓樸排序 Topological Sort
             <!-- 404 -->
             
         </h1>
@@ -331,9 +332,11 @@
                     <div class= post-intro-tags >
     
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Strapi">Strapi</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="LeetCode">LeetCode</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Cloudinary">Cloudinary</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Algorithm">Algorithm</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Topological Sort">Topological Sort</a>
     
 </div>
 
@@ -341,13 +344,13 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">642</span>Reading time: <span class="post-count reading-time">3 min</span></span>
+                        <span>Word count: <span class="post-count word-count">351</span>Reading time: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2022/07/01</span>
+                    <span class="post-intro-time">2024/07/14</span>
                     <!-- busuanzi -->
                     
                         <span id="busuanzi_container_page_pv" class="busuanzi-pv">
@@ -502,39 +505,21 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <h2 id="關於Cloudinary"><a href="#關於Cloudinary" class="headerlink" title="關於Cloudinary"></a>關於Cloudinary</h2><p><a target="_blank" rel="noopener" href="https://cloudinary.com/console/c-3dc4299f4f35933e5add0dfe1b5ce3/getting-started">https://cloudinary.com/</a></p>
-<p><img src="/yubo-blog/2022/07/01/Strapi-upload-image-to-Cloudinary/cloud.png" alt="Untitled"></p>
-<p>Cloudinary 是一個為網頁和行動裝置開發者提供的媒體管理平台，簡單來說就是一個基於雲端圖片處理、管理、儲存、美化於一體的平台，同时也具備影像抓取功能，提供API接口。</p>
-<h2 id="為甚麼要上傳到Cloudinary"><a href="#為甚麼要上傳到Cloudinary" class="headerlink" title="為甚麼要上傳到Cloudinary"></a>為甚麼要上傳到Cloudinary</h2><p>當strapi部屬到heroku，由於heroku免費專案是如果30分鐘沒有api call，伺服器就會進入休眠，每當進入休眠，strapi local media內的圖片就會不見，所以需要另外存雲端平台上。</p>
-<h2 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h2><ol>
-<li><p>先創立一個strapi專案，並部屬到heroku<br><a target="_blank" rel="noopener" href="https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/hosting-guides/heroku.html#_2-login-to-heroku-from-your-cli">https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/hosting-guides/heroku.html#_2-login-to-heroku-from-your-cli</a></p>
-</li>
-<li><p>在Cloudinary新增一個資料庫，在dashboard內可以看到Account Details等等需要用到</p>
-</li>
-<li><p>到strapi專案資料夾，終端機輸入指令</p>
- <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @strapi/provider-upload-cloudinary --save</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>.&#x2F;config&#x2F;plugins.js路徑下加入以下code<br>*注意: plugins.js 檔名有s</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">&#123; env &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      <span class="attr">upload</span>: &#123;</span><br><span class="line">        <span class="attr">config</span>: &#123;</span><br><span class="line">          <span class="attr">provider</span>: <span class="string">&#x27;cloudinary&#x27;</span>,</span><br><span class="line">          <span class="attr">providerOptions</span>: &#123;</span><br><span class="line">            <span class="attr">cloud_name</span>: <span class="title function_">env</span>(<span class="string">&#x27;CLOUDINARY_NAME&#x27;</span>),</span><br><span class="line">            <span class="attr">api_key</span>: <span class="title function_">env</span>(<span class="string">&#x27;CLOUDINARY_KEY&#x27;</span>),</span><br><span class="line">            <span class="attr">api_secret</span>: <span class="title function_">env</span>(<span class="string">&#x27;CLOUDINARY_SECRET&#x27;</span>),</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">actionOptions</span>: &#123;</span><br><span class="line">            <span class="attr">upload</span>: &#123;&#125;,</span><br><span class="line">            <span class="attr">delete</span>: &#123;&#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然後在根目錄創建or修改<code>.env</code>，加入以下3行，資訊都在Cloudinary Dashboard內</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">CLOUDINARY_NAME</span> = cloudinary-name</span><br><span class="line"><span class="variable constant_">CLOUDINARY_KEY</span> = cloudinary-key</span><br><span class="line"><span class="variable constant_">CLOUDINARY_SECRET</span> = cloudinary-secret</span><br></pre></td></tr></table></figure>
-<p> 另外也要在heroku Settings → Config Vars 一樣要設置那三個變數</p>
-</li>
-<li><p>在.&#x2F;config&#x2F;middlewares.js內，在module.exports 陣列內，增加以下一個元素</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;strapi::security&#x27;</span>,</span><br><span class="line">  <span class="attr">config</span>: &#123;</span><br><span class="line">    <span class="attr">contentSecurityPolicy</span>: &#123;</span><br><span class="line">      <span class="attr">useDefaults</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">directives</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;connect-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;https:&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;img-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;data:&#x27;</span>, <span class="string">&#x27;blob:&#x27;</span>, <span class="string">&#x27;res.cloudinary.com&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;media-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;data:&#x27;</span>, <span class="string">&#x27;blob:&#x27;</span>, <span class="string">&#x27;res.cloudinary.com&#x27;</span>],</span><br><span class="line">        <span class="attr">upgradeInsecureRequests</span>: <span class="literal">null</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p> 完成後應該會長這樣</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = [</span><br><span class="line">  <span class="string">&#x27;strapi::errors&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::security&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::cors&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::poweredBy&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::logger&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::query&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::body&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::session&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::favicon&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;strapi::public&#x27;</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;strapi::security&#x27;</span>,</span><br><span class="line">    <span class="attr">config</span>: &#123;</span><br><span class="line">      <span class="attr">contentSecurityPolicy</span>: &#123;</span><br><span class="line">        <span class="attr">useDefaults</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">directives</span>: &#123;</span><br><span class="line">          <span class="string">&#x27;connect-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;https:&#x27;</span>],</span><br><span class="line">          <span class="string">&#x27;img-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;data:&#x27;</span>, <span class="string">&#x27;blob:&#x27;</span>, <span class="string">&#x27;dl.airtable.com&#x27;</span>, <span class="string">&#x27;res.cloudinary.com&#x27;</span>],</span><br><span class="line">          <span class="string">&#x27;media-src&#x27;</span>: [<span class="string">&quot;&#x27;self&#x27;&quot;</span>, <span class="string">&#x27;data:&#x27;</span>, <span class="string">&#x27;blob:&#x27;</span>, <span class="string">&#x27;dl.airtable.com&#x27;</span>, <span class="string">&#x27;res.cloudinary.com&#x27;</span>],</span><br><span class="line">          <span class="attr">upgradeInsecureRequests</span>: <span class="literal">null</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>完成後git add . → git commit 後，如果是用heroku cl 就輸入指令</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku <span class="attr">HEAD</span>:main</span><br></pre></td></tr></table></figure>
-<p> 如果是用heroku+github，就在heroku 手動deploy選好分支，然後按下deploy就好。</p>
-</li>
+        <h3 id="認識Topological-Sort"><a href="#認識Topological-Sort" class="headerlink" title="認識Topological Sort"></a>認識Topological Sort</h3><p><a target="_blank" rel="noopener" href="https://sites.google.com/view/zsgititit/home/jin-jiec-cheng-shi-she-ji-2/tu-lun-topology-sort">https://sites.google.com/view/zsgititit/home/jin-jiec-cheng-shi-she-ji-2/tu-lun-topology-sort</a></p>
+<h3 id="演算法"><a href="#演算法" class="headerlink" title="演算法"></a>演算法</h3><p>利用「拔點」的方式，推導拓樸排序</p>
+<ul>
+<li>計算圖中各點 indegree(被連入邊數，又稱「入度」)，即前置工作量</li>
+<li>將所有圖中 indegree 為 0 的點，即無前置工作者，放入待拔點 queue 中</li>
+<li>重複以下動作，直到清空 queue:</li>
+</ul>
+<ol>
+<li>從 queue 中拔除點i，並將所有與點i 相連的點j indegree 減 1</li>
+<li>若該相連點j indegree 減至 0，則放入待拔點 queue 中</li>
 </ol>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://strapi.io/blog/add-cloudinary-support-to-your-strapi-application">https://strapi.io/blog/add-cloudinary-support-to-your-strapi-application</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/hosting-guides/heroku.html#_2-retrieve-database-credentials">https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/deployment/hosting-guides/heroku.html#_2-retrieve-database-credentials</a></li>
-</ol>
+<h3 id="實戰演練"><a href="#實戰演練" class="headerlink" title="實戰演練"></a>實戰演練</h3><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/build-a-matrix-with-conditions/description/">https://leetcode.com/problems/build-a-matrix-with-conditions/description/</a></p>
+<p>利用拓樸排序來給予1~k指定列&amp;行的位置，如果圖產生cycle，則代表有矛盾發生(如題目第二個範例)</p>
+<p><img src="/yubo-blog/2024/07/14/%E6%8B%93%E6%A8%B8%E6%8E%92%E5%BA%8F-Topological-Sort/1.jpg" alt="70882_0.jpg"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> buildMatrix = <span class="keyword">function</span>(<span class="params">k, rowConditions, colConditions</span>) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">createOrder</span>(<span class="params">conditions</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> theMap = <span class="keyword">new</span> <span class="title class_">Map</span>()</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">            theMap.<span class="title function_">set</span>(i, <span class="number">0</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> [start, end] <span class="keyword">of</span> conditions) &#123;</span><br><span class="line">            theMap.<span class="title function_">set</span>(end, theMap.<span class="title function_">get</span>(end) + <span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> queue = []</span><br><span class="line">        <span class="keyword">let</span> order = []</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> theMap) &#123;</span><br><span class="line">            <span class="keyword">if</span> (value === <span class="number">0</span>) &#123;</span><br><span class="line">                queue.<span class="title function_">push</span>(key)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (queue.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> n = queue.<span class="title function_">shift</span>()</span><br><span class="line">            order.<span class="title function_">push</span>(n)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> [start, end] <span class="keyword">of</span> conditions) &#123;</span><br><span class="line">                <span class="keyword">if</span> (start === n) &#123;</span><br><span class="line">                    theMap.<span class="title function_">set</span>(end, theMap.<span class="title function_">get</span>(end) - <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">if</span> (theMap.<span class="title function_">get</span>(end) === <span class="number">0</span>) queue.<span class="title function_">push</span>(end)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> order</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> rowOrder = <span class="title function_">createOrder</span>(rowConditions)</span><br><span class="line">    <span class="keyword">let</span> colOrder = <span class="title function_">createOrder</span>(colConditions)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If cycle</span></span><br><span class="line">    <span class="keyword">if</span> (rowOrder.<span class="property">length</span> !== k || colOrder.<span class="property">length</span> !== k) <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> res = <span class="keyword">new</span> <span class="title class_">Array</span>(k).<span class="title function_">fill</span>(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">        res[i] = <span class="keyword">new</span> <span class="title class_">Array</span>(k).<span class="title function_">fill</span>(<span class="number">0</span>)</span><br><span class="line">        res[i][colOrder.<span class="title function_">indexOf</span>(rowOrder[i])] = rowOrder[i]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </article>
     <!-- license -->
@@ -544,16 +529,16 @@
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/yubo-blog/2022/07/02/%E8%BC%95%E9%87%8F%E5%8C%96github-issue%E7%95%99%E8%A8%80%E6%8F%92%E4%BB%B6-utterances/" title="輕量化github issue留言插件 utterances">
-                    <div class="nextTitle">輕量化github issue留言插件 utterances</div>
+                <a href="/yubo-blog/2024/08/14/Dijkstra-s-Algorithm-Floyd-warshall-%E7%94%9A%E9%BA%BC%E6%99%82%E5%80%99%E7%94%A8%E5%93%AA%E5%80%8B-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%91%E6%BC%94%E7%AE%97%E6%B3%95/" title="Dijkstra's Algorithm & Floyd warshall 甚麼時候用哪個? | 最短路徑演算法">
+                    <div class="nextTitle">Dijkstra's Algorithm & Floyd warshall 甚麼時候用哪個? | 最短路徑演算法</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/yubo-blog/2022/05/06/%E4%BD%BF%E7%94%A8v-on-keypress%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C/" title="使用v-on keypress遇到的問題">
-                    <div class="prevTitle">使用v-on keypress遇到的問題</div>
+                <a href="/yubo-blog/2024/07/04/Dutch-National-Flag-Sort-Alg/" title="Dutch National Flag | Sort Alg">
+                    <div class="prevTitle">Dutch National Flag | Sort Alg</div>
                 </a>
             
         </li>
@@ -698,7 +683,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%9C%E6%96%BCCloudinary"><span class="toc-number">1.</span> <span class="toc-text">關於Cloudinary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E7%94%9A%E9%BA%BC%E8%A6%81%E4%B8%8A%E5%82%B3%E5%88%B0Cloudinary"><span class="toc-number">2.</span> <span class="toc-text">為甚麼要上傳到Cloudinary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%A9%9F"><span class="toc-number">3.</span> <span class="toc-text">步驟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AA%8D%E8%AD%98Topological-Sort"><span class="toc-number">1.</span> <span class="toc-text">認識Topological Sort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">演算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%A6%E6%88%B0%E6%BC%94%E7%B7%B4"><span class="toc-number">3.</span> <span class="toc-text">實戰演練</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
