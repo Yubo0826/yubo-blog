@@ -6,12 +6,16 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "sync": "node scripts/syncNotion.js"
   },
   "hexo": {
     "version": "6.3.0"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "axios": "^1.7.5",
+    "fs": "^0.0.1-security",
     "hexo": "^6.3.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
