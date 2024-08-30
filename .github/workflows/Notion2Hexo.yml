@@ -65,19 +65,21 @@ jobs:
           file_pattern: "source/"
           commit_message: Automatic NotionSync.
       # 下面的操作是用于部署github pages, 各位可根据自己需要进行修改，不一定需要
-      - name: Setup Pages
-        if: steps.NotionSync.outputs.updated_count != '0'
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        if: steps.NotionSync.outputs.updated_count != '0'
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload the public dir
-          path: "./public"
-      - name: Deploy to GitHub Pages
-        if: steps.NotionSync.outputs.updated_count != '0'
-        id: deployment
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+      # - name: Setup Pages
+      #   if: steps.NotionSync.outputs.updated_count != '0'
+      #   uses: actions/configure-pages@v3
+      # - name: Upload artifact
+      #   if: steps.NotionSync.outputs.updated_count != '0'
+      #   uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     # Upload the public dir
+      #     path: "./public"
+      # - name: Deploy to GitHub Pages
+      #   if: steps.NotionSync.outputs.updated_count != '0'
+      #   id: deployment
+      #   uses: actions/deploy-pages@v2
