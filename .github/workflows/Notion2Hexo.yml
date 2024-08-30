@@ -54,8 +54,8 @@ jobs:
           timezone: "Asia/Shanghai"
       - name: Sync git & build
         if: steps.NotionSync.outputs.updated_count != '0'
-          # git pull
         run: |
+          git pull
           npm install
           npm run build
       - name: Commit & Push
