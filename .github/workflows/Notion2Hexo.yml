@@ -65,7 +65,7 @@ jobs:
           file_pattern: "source/"
           commit_message: Automatic NotionSync.
       # 下面的操作是用于部署github pages, 各位可根据自己需要进行修改，不一定需要
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
