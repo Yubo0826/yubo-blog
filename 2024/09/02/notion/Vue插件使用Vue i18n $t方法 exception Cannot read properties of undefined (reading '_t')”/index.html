@@ -20,22 +20,22 @@
         <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
     
     <meta name="description" content="">
-    <meta property="og:type" content="article">
-<meta property="og:title" content="test4">
-<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2024/08/30/notion/test4/index.html">
+    <meta name="description" content="緣由在專案自製一個 popup 視窗插件，上面的文字用 i18n 模板，但使用上會產生錯誤， 詳看 log 後，發現調用 i18n 方法$t，會報錯，而錯誤似乎是源於 i18n 實例找不到 12Cannot read properties of undefined (reading &amp;#x27;_t&amp;#x27;)&quot;&#x2F;&#x2F; _t指向i18n實例  i18n 實例在 main.js 裡面被定義">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading &#39;_t&#39;)”">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2024/09/02/notion/Vue%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8Vue%20i18n%20$t%E6%96%B9%E6%B3%95%20exception%20Cannot%20read%20properties%20of%20undefined%20(reading%20'_t')%E2%80%9D/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="緣由在專案自製一個 popup 視窗插件，上面的文字用 i18n 模板，但使用上會產生錯誤， 詳看 log 後，發現調用 i18n 方法$t，會報錯，而錯誤似乎是源於 i18n 實例找不到 12Cannot read properties of undefined (reading &amp;#x27;_t&amp;#x27;)&quot;&#x2F;&#x2F; _t指向i18n實例  i18n 實例在 main.js 裡面被定義">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yubo0826.github.io//source/imagesab498e83-04ee-41c2-9a86-c238dea9baa2.jpg">
-<meta property="article:published_time" content="2024-08-30T15:23:00.000Z">
-<meta property="article:modified_time" content="2024-08-30T15:23:00.000Z">
+<meta property="article:published_time" content="2024-09-02T02:41:55.065Z">
+<meta property="article:modified_time" content="2024-08-30T10:41:00.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yubo0826.github.io//source/imagesab498e83-04ee-41c2-9a86-c238dea9baa2.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/yubo-blog/assets/favicon.ico">
     
-    <title>test4 · David Yu Blog</title>
+    <title>Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading &#39;_t&#39;)” · David Yu Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -261,7 +261,7 @@
                 <a href="/yubo-blog/">David Yu Blog</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">test4</a>
+                <a href="#" class="post-name">Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading '_t')”</a>
             </div>
         </div>
     
@@ -307,7 +307,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                test4
+                Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading '...
             <!-- 404 -->
             
         </h1>
@@ -333,13 +333,13 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">0</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">471</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <!-- 撰写日期 -->
                     <span class="iconfont-archer post-intro-calander">&#xe676;</span>
-                    <span class="post-intro-time">2024/08/30</span>
+                    <span class="post-intro-time">2024/09/02</span>
                     <!-- busuanzi -->
                     
                         <span id="busuanzi_container_page_pv" class="busuanzi-pv">
@@ -494,7 +494,25 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><img src="https://yubo0826.github.io//source/imagesab498e83-04ee-41c2-9a86-c238dea9baa2.jpg"></p>
+        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>在專案自製一個 popup 視窗插件，上面的文字用 i18n 模板，但使用上會產生錯誤，</p>
+<p>詳看 log 後，發現調用 i18n 方法<code>$t</code>，會報錯，而錯誤似乎是源於 i18n 實例找不到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Cannot</span> read properties <span class="keyword">of</span> <span class="literal">undefined</span> (reading <span class="string">&#x27;_t&#x27;</span>)<span class="string">&quot;</span></span><br><span class="line"><span class="string">// _t指向i18n實例</span></span><br></pre></td></tr></table></figure>
+
+<p>i18n 實例在 main.js 裡面被定義</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// i18n配置</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueI18</span>n <span class="keyword">from</span> <span class="string">&quot;vue-i18n&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> messages <span class="keyword">from</span> <span class="string">&quot;./lang/index&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueI18</span>n); <span class="comment">// 可以使用$t</span></span><br><span class="line"><span class="keyword">const</span> lang = <span class="string">&quot;en&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> i18n = <span class="keyword">new</span> <span class="title class_">VueI18</span>n(&#123;</span><br><span class="line">  <span class="attr">locale</span>: lang,</span><br><span class="line">  messages,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入自己的插件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MsgBox</span> <span class="keyword">from</span> <span class="string">&quot;./components/common/MessageBox&quot;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">MsgBox</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Vue實例產生</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#root&quot;</span>,</span><br><span class="line">  i18n,</span><br><span class="line">  <span class="attr">router</span>: router,</span><br><span class="line">  <span class="attr">store</span>: store,</span><br><span class="line">  <span class="attr">render</span>: <span class="function">(<span class="params">h</span>) =&gt;</span> <span class="title function_">h</span>(<span class="title class_">AppView</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="解決"><a href="#解決" class="headerlink" title="解決"></a>解決</h2><p>這個 i18n 實例包含翻譯語言包與預設語言等資訊，是$t 所需的，但原來的 flow，<code>Vue.use(MsgBox)</code>這時找不到 i18n 實例，因為等<code>new Vue()</code>才能拿到。</p>
+<p>現行的解決方法是<code>Vue.use(MsgBox)</code>在<code>new Vue()</code>在後才調用</p>
+<p>改成:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">VueInstance</span> = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#root&quot;</span>,</span><br><span class="line">  i18n,</span><br><span class="line">  <span class="attr">router</span>: router,</span><br><span class="line">  <span class="attr">store</span>: store,</span><br><span class="line">  <span class="attr">render</span>: <span class="function">(<span class="params">h</span>) =&gt;</span> <span class="title function_">h</span>(<span class="title class_">AppView</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">MsgBox</span>, &#123; <span class="attr">i18n</span>: <span class="title class_">VueInstance</span>.<span class="property">$i18n</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>把 i18n 實例傳入插件裡面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MessageBox.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MessageBoxComp</span> <span class="keyword">from</span> <span class="string">&quot;./MessageBox.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> msgBox = &#123;</span><br><span class="line">  <span class="attr">install</span>: <span class="function">(<span class="params">Vue, &#123; i18n &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">MsgBoxConstructor</span> = <span class="title class_">Vue</span>.<span class="title function_">extend</span>(<span class="title class_">MessageBoxComp</span>);</span><br><span class="line">    <span class="keyword">const</span> instance = <span class="keyword">new</span> <span class="title class_">MsgBoxConstructor</span>();</span><br><span class="line">    instance.$mount(<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$msg</span> = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$msg</span>.<span class="property">error</span> = <span class="function">(<span class="params">msg, title</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(instance.<span class="property">$el</span>);</span><br><span class="line">      instance.<span class="property">type</span> = <span class="string">&quot;error&quot;</span>;</span><br><span class="line">      instance.<span class="property">show</span> = <span class="literal">true</span>;</span><br><span class="line">      instance.<span class="property">i18n</span> = i18n.<span class="property">locale</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$msg</span>.<span class="property">success</span> = <span class="function">(<span class="params">msg</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(instance.<span class="property">$el</span>);</span><br><span class="line">      instance.<span class="property">type</span> = <span class="string">&quot;success&quot;</span>;</span><br><span class="line">      instance.<span class="property">show</span> = <span class="literal">true</span>;</span><br><span class="line">      instance.<span class="property">i18n</span> = i18n.<span class="property">locale</span>;</span><br><span class="line">      instance.<span class="property">msg</span> = msg;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> msgBox;</span><br></pre></td></tr></table></figure>
+
+<p>雖然這樣可以成功除錯，但在 Vue 官方文件明確表示，<code>Vue.use</code>需要在調用<code>new Vue()</code>前調用，確實這樣是合理的，但在專案裡還是可以正常使用插件，詳細原因不得而知。</p>
+<p><a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/api/#Vue-use">https://v2.cn.vuejs.org/v2/api/#Vue-use</a></p>
+<h2 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h2><p>官方使用&#x2F;開發插件文件</p>
+<p><a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/guide/plugins.html">https://v2.cn.vuejs.org/v2/guide/plugins.html</a></p>
 
     </article>
     <!-- license -->
@@ -504,16 +522,16 @@
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/yubo-blog/2024/08/30/notion/test5/" title="test5">
-                    <div class="nextTitle">test5</div>
+                <a href="/yubo-blog/2024/09/02/notion/Javascript%20%E7%89%A9%E4%BB%B6%E5%82%B3%E5%9D%80/" title="Javascript 物件傳址">
+                    <div class="nextTitle">Javascript 物件傳址</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/yubo-blog/2024/08/30/notion/TEST_PIC/" title="TEST_PIC">
-                    <div class="prevTitle">TEST_PIC</div>
+                <a href="/yubo-blog/2024/09/01/notion/Test_home/" title="Test_home">
+                    <div class="prevTitle">Test_home</div>
                 </a>
             
         </li>
@@ -658,7 +676,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%B1%BA"><span class="toc-number">2.</span> <span class="toc-text">解決</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%9C%E5%85%85"><span class="toc-number">3.</span> <span class="toc-text">補充</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -902,22 +920,7 @@
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -1320,7 +1323,7 @@
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 47
+        Total : 46
         </div>
         <!-- search  -->
         
@@ -1336,32 +1339,44 @@
             
         
         <li class="archive-post-item">
-            <span class="archive-post-date">08/30</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/TEST_PIC/">TEST_PIC</a>
+            <span class="archive-post-date">09/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/09/02/notion/Test_1040/">Test_1040</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/09/02/notion/Data%20URI%20%E4%BB%8B%E7%B4%B9/">Data URI 介紹</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/09/02/notion/Javascript%20%E7%89%A9%E4%BB%B6%E5%82%B3%E5%9D%80/">Javascript 物件傳址</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/09/02/notion/Vue%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8Vue%20i18n%20$t%E6%96%B9%E6%B3%95%20exception%20Cannot%20read%20properties%20of%20undefined%20(reading%20'_t')%E2%80%9D/">Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading '_t')”</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/01</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/09/01/notion/Test_home/">Test_home</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/30</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/test4/">test4</a>
+            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/test_reborn/">test_reborn</a>
         </li>
     
         
         <li class="archive-post-item">
             <span class="archive-post-date">08/30</span>
             <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/test5/">test5</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/30</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/test3/">test3</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">08/30</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/test/">test</a>
         </li>
     
         
@@ -1614,51 +1629,6 @@
         <li class="archive-post-item">
             <span class="archive-post-date">01/17</span>
             <a class="archive-post-title" href="/yubo-blog/2022/01/17/JSON-Server-%E6%A8%A1%E6%93%AC-RESTful-API%E5%8F%96%E5%BE%97%E5%81%87%E8%B3%87%E6%96%99/">JSON Server | 模擬 RESTful API取得假資料</a>
-        </li>
-    
-        
-            
-            
-                
-                </ul>
-            
-            <div class="archive-year"> Invalid date </div>
-            <ul class="year-list">
-            
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/Data%20URI%20%E4%BB%8B%E7%B4%B9/">Data URI 介紹</a>
-        </li>
-    
-        
-            
-            
-                
-                </ul>
-            
-            <div class="archive-year"> Invalid date </div>
-            <ul class="year-list">
-            
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/Javascript%20%E7%89%A9%E4%BB%B6%E5%82%B3%E5%9D%80/">Javascript 物件傳址</a>
-        </li>
-    
-        
-            
-            
-                
-                </ul>
-            
-            <div class="archive-year"> Invalid date </div>
-            <ul class="year-list">
-            
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/08/30/notion/Vue%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8Vue%20i18n%20$t%E6%96%B9%E6%B3%95%20exception%20Cannot%20read%20properties%20of%20undefined%20(reading%20'_t')%E2%80%9D/">Vue插件使用Vue i18n $t方法 exception Cannot read properties of undefined (reading '_t')”</a>
         </li>
     
     </div>
