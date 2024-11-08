@@ -20,18 +20,29 @@
         <meta name="keywords" content="hexo,David Bro,David Blog,David 前端,David Vue">
     
     <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/archives/2024/11/index.html">
+    <meta name="description" content="前言降低Cookie資安風險有很重要的三個屬性，分別是HttpOnly、Secure以及SameSite，如果沒有設置合適的屬性，則會大大增加Cookie資訊招竊的風險。 打開瀏覽器DevTools，在應用程式→Cookie可以看到這三個屬性:  我在App Scan掃出兩個問題，分別關於Secure、SameSite。   那麼以下分別介紹這三種屬性的功效:  HttpOnly用途是讓有設置此屬">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly &amp; Secure &amp; SameSite">
+<meta property="og:url" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言降低Cookie資安風險有很重要的三個屬性，分別是HttpOnly、Secure以及SameSite，如果沒有設置合適的屬性，則會大大增加Cookie資訊招竊的風險。 打開瀏覽器DevTools，在應用程式→Cookie可以看到這三個屬性:  我在App Scan掃出兩個問題，分別關於Secure、SameSite。   那麼以下分別介紹這三種屬性的功效:  HttpOnly用途是讓有設置此屬">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/1.png">
+<meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/2.png">
+<meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/3.png">
+<meta property="article:published_time" content="2024-10-08T02:07:17.000Z">
+<meta property="article:modified_time" content="2024-11-08T02:23:24.786Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="資安">
+<meta property="article:tag" content="Cookie">
+<meta property="article:tag" content="App Scan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/yubo-blog/assets/favicon.ico">
     
-    <title>David Yu Blog</title>
+    <title>App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly &amp; Secure &amp; SameSite · David Yu Blog</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -219,6 +230,8 @@
         }
     </script>
     
+        <body class="post-body">
+    
         <!-- header -->
         <header class="header header-mobile">
     <!-- top read progress line -->
@@ -248,6 +261,17 @@
     </div>
     <!-- toggle banner for post layout -->
     
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/yubo-blog/">David Yu Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly & Secure & SameSite</a>
+            </div>
+        </div>
+    
 </header>
 
         <!-- fixed footer -->
@@ -274,24 +298,84 @@
 
 
 
+    height:50vh;
+
 ">
     
     <!-- 主页  -->
     
+        
+    <!-- 404页  -->
+    
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/yubo-blog/)"></div>
+    <div class="site-intro-img" style="background-image: url(/yubo-blog/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+                App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly & Secure & SameSite
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+                
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="資安">資安</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Cookie">Cookie</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="App Scan">App Scan</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">667</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/10/08</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -421,89 +505,105 @@
 
             <img class="loading" src="/yubo-blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
             <div class="container container-unloaded">
-                <main class="main index-page">
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/yubo-blog/2024/11/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/">
-                
-                <span class="abstract-title-text">App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly &amp; Secure &amp; SameSite</span>
-            </a>
-            <div class="abstract-content">
-                前言降低Cookie資安風險有很重要的三個屬性，分別是HttpOnly、Secure以及Sam...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/11/08">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="資安">資安</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Cookie">Cookie</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="App Scan">App Scan</a>
-    
-</div>
+                <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>降低Cookie資安風險有很重要的三個屬性，分別是<code>HttpOnly</code>、<code>Secure</code>以及<code>SameSite</code>，如果沒有設置合適的屬性，則會大大增加Cookie資訊招竊的風險。</p>
+<p>打開瀏覽器DevTools，在應用程式→Cookie可以看到這三個屬性:</p>
+<p><img src="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/1.png" alt="image.png"></p>
+<p>我在App Scan掃出兩個問題，分別關於<code>Secure</code>、<code>SameSite</code>。</p>
+<p><img src="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/2.png" alt="Snipaste_2024-09-20_10-14-57.png"></p>
+<p><img src="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/3.png" alt="Snipaste_2024-09-20_10-02-46.png"></p>
+<p>那麼以下分別介紹這三種屬性的功效:</p>
+<hr>
+<h2 id="HttpOnly"><a href="#HttpOnly" class="headerlink" title="HttpOnly"></a>HttpOnly</h2><p>用途是讓有設置此屬性的Cookie不能被Javascript讀取，通常需要透過伺服器後端設置。</p>
+<p>HttpOnly主要是防範XSS攻擊，因為常見XSS是攻擊者會在網站中植入惡意代碼執行document.cookie，然後獲取被害人的cookie。而設立<code>HttpOnly</code>的Cookie因為不能被Javascript讀取，所以可以保護Cookie不被竊取。</p>
+<h2 id="Secure"><a href="#Secure" class="headerlink" title="Secure"></a>Secure</h2><p><code>Secure</code>是這三個最為單純的，它的用途是讓開頭不是https的網站都沒有辦法獲得Cookie的資訊。</p>
+<h2 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h2><p>設置<code>SameSite</code>可以限制Cookie是否可以隨跨站請求一起發送，防止跨站請求偽造(CSRF)攻擊。</p>
+<p><code>SameSite</code>有三個值可以設置，分別是<code>Strict</code>、<code>Lax</code>和<code>None</code>。下面一一說明:</p>
+<h3 id="1-Strict"><a href="#1-Strict" class="headerlink" title="1. Strict"></a>1. Strict</h3><p>這是最嚴格的選項。Cookie <strong>永遠不會</strong>隨同跨站點請求發送。換句話說，只有在瀏覽器訪問與 Cookie 設置相同的Domain時，Cookie 才會發送。</p>
+<p>用例：適用於對安全性要求非常高的場景，例如敏感的身份驗證 Cookie。這樣可以完全阻止第三方網站的請求攜帶此 Cookie。</p>
+<h3 id="2-Lax"><a href="#2-Lax" class="headerlink" title="2. Lax"></a>2. Lax</h3><p>稍微寬鬆的選項。與Strict大概相同，會限制大多數第三方請求，但以下情況例外:</p>
+<ul>
+<li>跳轉連結 <a href=”…”></li>
+<li>GET表單 <form method=”GET” action=”…”></li>
+<li>預渲染 <link rel=”prerender” href=”…”></li>
+</ul>
+<p>這是最常被設置的選項，因為不像Strict太嚴格又有一定的安全性。</p>
+<h3 id="3-None"><a href="#3-None" class="headerlink" title="3. None"></a>3. None</h3><p>顧名思義就是不限制Cookie傳送，現在瀏覽器為了安全考量，如果Cookie的SameSite設置<code>None</code>，那<strong>必須</strong>同時設置 <code>Secure</code> 屬性，瀏覽器在https連線下才會傳送。</p>
+<hr>
+<h2 id="實作範例"><a href="#實作範例" class="headerlink" title="實作範例"></a>實作範例</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端JS</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">cookie</span> = <span class="string">`account=<span class="subst">$&#123;account&#125;</span>; SameSite=Lax; Secure;`</span></span><br></pre></td></tr></table></figure>
 
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/yubo-blog/2024/11/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/">
-                
-                <span class="abstract-title-text">App Scan資安風險解決紀錄之一: 子資源完整性 SRI</span>
-            </a>
-            <div class="abstract-content">
-                前言子資源完整性 (Subresource Integrity, SRI)，是一種瀏覽器的安全...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2024/11/08">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2024/11/08</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="資安">資安</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="App Scan">App Scan</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="SRI">SRI</a>
-    
-</div>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 伺服器端</span></span><br><span class="line">Set-Cookie: CookieName=CookieValue; SameSite=Strict;</span><br></pre></td></tr></table></figure>
 
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
+<hr>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li>HttpOnly：防止JavaScript讀取Cookie，主要用於防範XSS攻擊⁠。</li>
+<li>Secure：確保Cookie只能通過HTTPS連接傳輸，提高數據傳輸的安全性⁠。</li>
+<li>SameSite：限制Cookie在跨站請求中的傳送，有效防止CSRF攻擊⁠<a target="_blank" rel="noopener" href="https://www.notion.so/App-Scan-Cookie-HttpOnly-Secure-SameSite-5702e9984c584c3586db18d7daedcc28?pvs=21">1</a>。<code>SameSite</code>有三個選項： <code>Strict</code>：最嚴格，適用於高安全性要求的場景⁠。<code>Lax</code>：平衡安全性和功能性，是最常用的選項⁠。<code>None</code>：不限制Cookie傳送，但必須同時設置<code>Secure</code>屬性⁠。</li>
+</ul>
+<hr>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://tech-blog.cymetrics.io/posts/jo/zerobased-secure-samesite-httponly/">https://tech-blog.cymetrics.io/posts/jo/zerobased-secure-samesite-httponly/</a></li>
+<li><a target="_blank" rel="noopener" href="https://chatgpt.com/c/66ecec3c-af5c-8011-99db-be6b88f76335">https://chatgpt.com/c/66ecec3c-af5c-8011-99db-be6b88f76335</a></li>
+</ol>
+
+    </article>
+    <!-- license -->
     
-    <!-- paginator  -->
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/" title="App Scan資安風險解決紀錄之一: 子資源完整性 SRI">
+                    <div class="prevTitle">App Scan資安風險解決紀錄之一: 子資源完整性 SRI</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
     
 </main>
+<style>
+    h2 {
+        margin-top: 2.5em;
+    }
+    h3 {
+        margin-top: 1.5em;
+    }
+</style>
 
                 <!-- profile -->
                 
@@ -589,6 +689,23 @@
 
         </div>
         <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HttpOnly"><span class="toc-number">2.</span> <span class="toc-text">HttpOnly</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Secure"><span class="toc-number">3.</span> <span class="toc-text">Secure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SameSite"><span class="toc-number">4.</span> <span class="toc-text">SameSite</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Strict"><span class="toc-number">4.1.</span> <span class="toc-text">1. Strict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Lax"><span class="toc-number">4.2.</span> <span class="toc-text">2. Lax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-None"><span class="toc-number">4.3.</span> <span class="toc-text">3. None</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E7%AF%84%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">實作範例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E8%AB%96"><span class="toc-number">6.</span> <span class="toc-text">結論</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">參考資料</span></a></li></ol>
+            </div>
         
         <!-- sidebar -->
         <div class="sidebar sidebar-hide">
@@ -1142,14 +1259,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
     
     
     
@@ -1172,14 +1281,14 @@
             
         
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/11/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/">App Scan資安風險解決紀錄之一: 子資源完整性 SRI</a>
+            <span class="archive-post-date">10/08</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/">App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly & Secure & SameSite</a>
         </li>
     
         
         <li class="archive-post-item">
-            <span class="archive-post-date">11/08</span>
-            <a class="archive-post-title" href="/yubo-blog/2024/11/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/">App Scan資安風險解決紀錄之二: Cookie三大安全屬性 HttpOnly & Secure & SameSite</a>
+            <span class="archive-post-date">10/08</span>
+            <a class="archive-post-title" href="/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/">App Scan資安風險解決紀錄之一: 子資源完整性 SRI</a>
         </li>
     
         
@@ -1446,6 +1555,11 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
         
+            <span class="sidebar-tag-name" data-tags="Data URI">
+                <span class="iconfont-archer">&#xe606;</span>
+                Data URI
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="資安">
                 <span class="iconfont-archer">&#xe606;</span>
                 資安
@@ -1471,11 +1585,6 @@
                 SRI
             </span>
         
-            <span class="sidebar-tag-name" data-tags="Data URI">
-                <span class="iconfont-archer">&#xe606;</span>
-                Data URI
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="LeetCode">
                 <span class="iconfont-archer">&#xe606;</span>
                 LeetCode
@@ -1484,6 +1593,21 @@
             <span class="sidebar-tag-name" data-tags="Algorithm">
                 <span class="iconfont-archer">&#xe606;</span>
                 Algorithm
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Dijkstra">
+                <span class="iconfont-archer">&#xe606;</span>
+                Dijkstra
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Floyd warshall">
+                <span class="iconfont-archer">&#xe606;</span>
+                Floyd warshall
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="最短路徑">
+                <span class="iconfont-archer">&#xe606;</span>
+                最短路徑
             </span>
         
             <span class="sidebar-tag-name" data-tags="JavaScript">
@@ -1514,21 +1638,6 @@
             <span class="sidebar-tag-name" data-tags="套件">
                 <span class="iconfont-archer">&#xe606;</span>
                 套件
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="Dijkstra">
-                <span class="iconfont-archer">&#xe606;</span>
-                Dijkstra
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="Floyd warshall">
-                <span class="iconfont-archer">&#xe606;</span>
-                Floyd warshall
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="最短路徑">
-                <span class="iconfont-archer">&#xe606;</span>
-                最短路徑
             </span>
         
             <span class="sidebar-tag-name" data-tags="Vue">
@@ -1591,6 +1700,11 @@
                 Github Pages
             </span>
         
+            <span class="sidebar-tag-name" data-tags="i18n">
+                <span class="iconfont-archer">&#xe606;</span>
+                i18n
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="源碼">
                 <span class="iconfont-archer">&#xe606;</span>
                 源碼
@@ -1604,11 +1718,6 @@
             <span class="sidebar-tag-name" data-tags="XML">
                 <span class="iconfont-archer">&#xe606;</span>
                 XML
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="i18n">
-                <span class="iconfont-archer">&#xe606;</span>
-                i18n
             </span>
         
             <span class="sidebar-tag-name" data-tags="XOR">
@@ -1637,14 +1746,14 @@
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="資安">
-            <span class="iconfont-archer">&#xe60a;</span>
-            資安
-        </span>
-    
         <span class="sidebar-category-name" data-categories="Web">
             <span class="iconfont-archer">&#xe60a;</span>
             Web
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="資安">
+            <span class="iconfont-archer">&#xe60a;</span>
+            資安
         </span>
     
         <span class="sidebar-category-name" data-categories="Algorithm">
@@ -1732,6 +1841,8 @@
         <!-- CNZZ -->
         
         <!-- async load share.js -->
+        
+            <script src="/yubo-blog/scripts/share.js?v=20211217" async></script>
         
         <!-- mermaid -->
         
