@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/2.png">
 <meta property="og:image" content="https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/3.png">
 <meta property="article:published_time" content="2024-10-08T02:07:17.000Z">
-<meta property="article:modified_time" content="2024-11-08T02:23:24.786Z">
+<meta property="article:modified_time" content="2024-11-08T02:40:19.828Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="資安">
 <meta property="article:tag" content="Cookie">
@@ -346,7 +346,7 @@
                 <!-- 文章字数统计 -->
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">667</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">688</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -524,9 +524,9 @@
 <p>用例：適用於對安全性要求非常高的場景，例如敏感的身份驗證 Cookie。這樣可以完全阻止第三方網站的請求攜帶此 Cookie。</p>
 <h3 id="2-Lax"><a href="#2-Lax" class="headerlink" title="2. Lax"></a>2. Lax</h3><p>稍微寬鬆的選項。與Strict大概相同，會限制大多數第三方請求，但以下情況例外:</p>
 <ul>
-<li>跳轉連結 <a href=”…”></li>
-<li>GET表單 <form method=”GET” action=”…”></li>
-<li>預渲染 <link rel=”prerender” href=”…”></li>
+<li>跳轉連結 &lt;a href&#x3D;”…”&gt;</li>
+<li>GET表單 &lt;form method&#x3D;”GET” action&#x3D;”…”&gt;</li>
+<li>預渲染 &lt;link rel&#x3D;”prerender” href&#x3D;”…”&gt;</li>
 </ul>
 <p>這是最常被設置的選項，因為不像Strict太嚴格又有一定的安全性。</p>
 <h3 id="3-None"><a href="#3-None" class="headerlink" title="3. None"></a>3. None</h3><p>顧名思義就是不限制Cookie傳送，現在瀏覽器為了安全考量，如果Cookie的SameSite設置<code>None</code>，那<strong>必須</strong>同時設置 <code>Secure</code> 屬性，瀏覽器在https連線下才會傳送。</p>
@@ -1259,6 +1259,10 @@
         
         
         
+        
+        
+        
+        
     
     
     
@@ -1615,6 +1619,11 @@
                 JavaScript
             </span>
         
+            <span class="sidebar-tag-name" data-tags="DOM">
+                <span class="iconfont-archer">&#xe606;</span>
+                DOM
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="BugFix">
                 <span class="iconfont-archer">&#xe606;</span>
                 BugFix
@@ -1623,11 +1632,6 @@
             <span class="sidebar-tag-name" data-tags="encoded">
                 <span class="iconfont-archer">&#xe606;</span>
                 encoded
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="DOM">
-                <span class="iconfont-archer">&#xe606;</span>
-                DOM
             </span>
         
             <span class="sidebar-tag-name" data-tags="Node.js">
@@ -1700,24 +1704,24 @@
                 Github Pages
             </span>
         
-            <span class="sidebar-tag-name" data-tags="i18n">
-                <span class="iconfont-archer">&#xe606;</span>
-                i18n
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="源碼">
                 <span class="iconfont-archer">&#xe606;</span>
                 源碼
             </span>
         
-            <span class="sidebar-tag-name" data-tags="Web">
+            <span class="sidebar-tag-name" data-tags="i18n">
                 <span class="iconfont-archer">&#xe606;</span>
-                Web
+                i18n
             </span>
         
             <span class="sidebar-tag-name" data-tags="XML">
                 <span class="iconfont-archer">&#xe606;</span>
                 XML
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Web">
+                <span class="iconfont-archer">&#xe606;</span>
+                Web
             </span>
         
             <span class="sidebar-tag-name" data-tags="XOR">

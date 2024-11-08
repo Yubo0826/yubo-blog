@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%BA%8C-Cookie%E4%B8%89%E5%A4%A7%E5%AE%89%E5%85%A8%E5%B1%AC%E6%80%A7-HttpOnly-Secure-SameSite/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/2024/10/08/App-Scan%E8%B3%87%E5%AE%89%E9%A2%A8%E9%9A%AA%E8%A7%A3%E6%B1%BA%E7%B4%80%E9%8C%84%E4%B9%8B%E4%B8%80-%E5%AD%90%E8%B3%87%E6%BA%90%E5%AE%8C%E6%95%B4%E6%80%A7-SRI/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -482,6 +482,13 @@
   </url>
   
   <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
+    <lastmod>2024-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/BugFix/</loc>
     <lastmod>2024-11-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -490,13 +497,6 @@
   
   <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/encoded/</loc>
-    <lastmod>2024-11-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
     <lastmod>2024-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -601,13 +601,6 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/i18n/</loc>
-    <lastmod>2024-11-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/%E6%BA%90%E7%A2%BC/</loc>
     <lastmod>2024-11-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -615,7 +608,7 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/Web/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/i18n/</loc>
     <lastmod>2024-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -623,6 +616,13 @@
   
   <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/XML/</loc>
+    <lastmod>2024-11-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/Web/</loc>
     <lastmod>2024-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
