@@ -7,6 +7,7 @@ tags:
 - Dijkstra
 - Floyd warshall
 - 最短路徑
+categories: Algorithm
 ---
 leetcode 題目: [**2976. Minimum Cost to Convert String I**](https://leetcode.com/problems/minimum-cost-to-convert-string-i/description/?envType=daily-question&envId=2024-07-29)
 

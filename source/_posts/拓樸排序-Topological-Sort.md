@@ -5,6 +5,7 @@ tags:
 - LeetCode
 - Algorithm
 - Topological Sort
+categories: Algorithm
 ---
 ### 認識Topological Sort
 
