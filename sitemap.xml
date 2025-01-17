@@ -428,7 +428,7 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/Data-URI/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/SRI/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -442,7 +442,14 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/SRI/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/JavaScript/</loc>
+    <lastmod>2025-01-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -484,20 +491,6 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/JavaScript/</loc>
-    <lastmod>2025-01-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/DOM/</loc>
-    <lastmod>2025-01-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/BugFix/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -506,6 +499,13 @@
   
   <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/encoded/</loc>
+    <lastmod>2025-01-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/Data-URI/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -589,13 +589,6 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/tags/Markdown/</loc>
-    <lastmod>2025-01-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/TypeScript/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -604,6 +597,13 @@
   
   <url>
     <loc>https://yubo0826.github.io/yubo-blog/tags/Github-Pages/</loc>
+    <lastmod>2025-01-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://yubo0826.github.io/yubo-blog/tags/Markdown/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -682,7 +682,7 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/Web/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/JavaScript/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -696,7 +696,7 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/JavaScript/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/Web/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -724,14 +724,14 @@
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/Vue/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/TypeScript/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://yubo0826.github.io/yubo-blog/categories/TypeScript/</loc>
+    <loc>https://yubo0826.github.io/yubo-blog/categories/Vue/</loc>
     <lastmod>2025-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
